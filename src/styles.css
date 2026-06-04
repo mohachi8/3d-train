@@ -1,0 +1,278 @@
+:root {
+  color-scheme: dark;
+  --panel: rgba(11, 16, 22, 0.76);
+  --panel-strong: rgba(13, 19, 28, 0.9);
+  --line: rgba(255, 255, 255, 0.14);
+  --text: #f3f7fb;
+  --muted: #a9b8c5;
+  --accent: #5eead4;
+  --accent-2: #f7c948;
+  --danger: #ff6b6b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background: #05070a;
+  color: var(--text);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+#scene {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.panel {
+  position: fixed;
+  z-index: 5;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(16px);
+}
+
+.panel-left {
+  top: 18px;
+  left: 18px;
+  width: min(360px, calc(100vw - 36px));
+  max-height: calc(100vh - 36px);
+  overflow: auto;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.brand {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  border: 2px solid rgba(94, 234, 212, 0.75);
+  border-radius: 50%;
+  background:
+    linear-gradient(90deg, transparent 44%, rgba(94, 234, 212, 0.8) 45% 55%, transparent 56%),
+    linear-gradient(0deg, transparent 44%, rgba(247, 201, 72, 0.8) 45% 55%, transparent 56%),
+    rgba(255, 255, 255, 0.08);
+}
+
+h1 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.primary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 42px;
+  margin: 14px 0;
+  border: 0;
+  border-radius: 6px;
+  background: #5eead4;
+  color: #06201d;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primary-button:hover {
+  background: #7ff6e4;
+}
+
+.control-grid {
+  display: grid;
+  grid-template-columns: 58px 1fr 58px 1fr;
+  gap: 8px 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+kbd {
+  display: inline-grid;
+  min-height: 24px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  font-size: 11px;
+}
+
+.section-title {
+  margin: 16px 0 8px;
+  color: var(--accent-2);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.line-toggles {
+  display: grid;
+  gap: 6px;
+  max-height: 240px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.line-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 18px currentColor;
+}
+
+.panel-right {
+  top: 18px;
+  right: 18px;
+  width: min(250px, calc(100vw - 36px));
+  padding: 14px;
+  border-radius: 8px;
+}
+
+.readout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 34px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.readout:last-child {
+  border-bottom: 0;
+}
+
+.readout strong {
+  color: var(--text);
+  font-size: 13px;
+  text-align: right;
+}
+
+.station-jump {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 5;
+  display: flex;
+  max-width: calc(100vw - 36px);
+  transform: translateX(-50%);
+  gap: 8px;
+  padding: 8px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-strong);
+  backdrop-filter: blur(16px);
+}
+
+.station-jump button {
+  min-width: 76px;
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.station-jump button:hover {
+  border-color: rgba(94, 234, 212, 0.8);
+}
+
+.lock-notice {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 6;
+  display: none;
+  transform: translate(-50%, -50%);
+  padding: 14px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.72);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.lock-notice.visible {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .panel-left {
+    top: 10px;
+    left: 10px;
+    max-height: 44vh;
+    padding: 12px;
+  }
+
+  .panel-right {
+    top: auto;
+    right: 10px;
+    bottom: 74px;
+    width: min(230px, calc(100vw - 20px));
+  }
+
+  .control-grid {
+    grid-template-columns: 52px 1fr;
+  }
+}
