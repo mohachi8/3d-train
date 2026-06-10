@@ -1,0 +1,27 @@
+{
+  "name": "tokyo-underground-3d",
+  "version": "0.1.0",
+  "private": true,
+  "description": "東京の地下空間(地下鉄・駅)を自由視点で探索できる3Dビューア",
+  "type": "module",
+  "workspaces": [
+    "pipeline",
+    "app"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w app",
+    "build": "npm run build -w app",
+    "preview": "npm run preview -w app",
+    "import:mt3d": "npm run cli -w pipeline -- import-mt3d",
+    "fetch:sources": "npm run cli -w pipeline -- fetch",
+    "build:data": "npm run cli -w pipeline -- build",
+    "validate:data": "npm run cli -w pipeline -- validate",
+    "report:data": "npm run cli -w pipeline -- report",
+    "test": "npm run test -w pipeline",
+    "typecheck": "npm run typecheck -w pipeline && npm run typecheck -w app",
+    "check": "npm run validate:data && npm run test && npm run typecheck && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

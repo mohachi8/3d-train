@@ -1,0 +1,93 @@
+# 全対象路線のレジストリ。
+#
+# - enabled: true の路線だけがビルドされる。有効化には data/depths/<operator>/<line>.yaml
+#   (全駅の深度)と抽出済み線形(data/sources/extracted/lines/)が必要。
+# - phase: 1=MVP(銀座・丸ノ内・大江戸) / 2=地下鉄13路線 / 3=JR・私鉄地下区間
+# - n02_match: 国土数値情報 N02 からの抽出キー(extract-n02 用)
+# - mt3d_id:   mini-tokyo-3d からのブートストラップ抽出キー(import-mt3d 用)
+lines:
+  # ========== Phase 1: MVP ==========
+  - id: tokyo-metro.ginza
+    name: 銀座線
+    name_en: Ginza Line
+    operator: tokyo-metro
+    color: "#FF9500"
+    phase: 1
+    enabled: true
+    underground: full   # 渋谷付近の高架区間は深度データ(負値)で表現する
+    n02_match: { operator: 東京地下鉄, line: 3号線銀座線 }
+    mt3d_id: TokyoMetro.Ginza
+    tunnel_radius_m: 4.0
+
+  - id: tokyo-metro.marunouchi
+    name: 丸ノ内線
+    name_en: Marunouchi Line
+    operator: tokyo-metro
+    color: "#F62E36"
+    phase: 1
+    enabled: true
+    underground: full   # 四ツ谷・後楽園・御茶ノ水付近の地上区間は深度データで表現
+    n02_match: { operator: 東京地下鉄, line: 4号線丸ノ内線 }
+    mt3d_id: TokyoMetro.Marunouchi
+    tunnel_radius_m: 4.0
+
+  - id: tokyo-metro.marunouchi-branch
+    name: 丸ノ内線(方南町支線)
+    name_en: Marunouchi Line Honancho Branch
+    operator: tokyo-metro
+    color: "#F62E36"
+    phase: 1
+    enabled: true
+    underground: full
+    n02_match: { operator: 東京地下鉄, line: 4号線丸ノ内線分岐線 }
+    mt3d_id: TokyoMetro.MarunouchiBranch
+    tunnel_radius_m: 4.0
+
+  - id: toei.oedo
+    name: 大江戸線
+    name_en: Oedo Line
+    operator: toei
+    color: "#B6007A"
+    phase: 1
+    enabled: true
+    underground: full   # 光が丘付近の駅も地下
+    n02_match: { operator: 東京都, line: 12号線大江戸線 }
+    mt3d_id: Toei.Oedo
+    tunnel_radius_m: 3.8  # リニア地下鉄の小断面シールド
+
+  # ========== Phase 2: 地下鉄13路線(深度データ整備後に enabled: true にする) ==========
+  - { id: tokyo-metro.hibiya, name: 日比谷線, name_en: Hibiya Line, operator: tokyo-metro,
+      color: "#B5B5AC", phase: 2, enabled: false, underground: full,
+      n02_match: { operator: 東京地下鉄, line: 2号線日比谷線 }, mt3d_id: TokyoMetro.Hibiya }
+  - { id: tokyo-metro.tozai, name: 東西線, name_en: Tozai Line, operator: tokyo-metro,
+      color: "#009BBF", phase: 2, enabled: false, underground: partial,
+      n02_match: { operator: 東京地下鉄, line: 5号線東西線 }, mt3d_id: TokyoMetro.Tozai }
+  - { id: tokyo-metro.chiyoda, name: 千代田線, name_en: Chiyoda Line, operator: tokyo-metro,
+      color: "#00BB85", phase: 2, enabled: false, underground: partial,
+      n02_match: { operator: 東京地下鉄, line: 9号線千代田線 }, mt3d_id: TokyoMetro.Chiyoda }
+  - { id: tokyo-metro.yurakucho, name: 有楽町線, name_en: Yurakucho Line, operator: tokyo-metro,
+      color: "#C1A470", phase: 2, enabled: false, underground: full,
+      n02_match: { operator: 東京地下鉄, line: 8号線有楽町線 }, mt3d_id: TokyoMetro.Yurakucho }
+  - { id: tokyo-metro.hanzomon, name: 半蔵門線, name_en: Hanzomon Line, operator: tokyo-metro,
+      color: "#8F76D6", phase: 2, enabled: false, underground: full,
+      n02_match: { operator: 東京地下鉄, line: 11号線半蔵門線 }, mt3d_id: TokyoMetro.Hanzomon }
+  - { id: tokyo-metro.namboku, name: 南北線, name_en: Namboku Line, operator: tokyo-metro,
+      color: "#00AC9B", phase: 2, enabled: false, underground: full,
+      n02_match: { operator: 東京地下鉄, line: 7号線南北線 }, mt3d_id: TokyoMetro.Namboku }
+  - { id: tokyo-metro.fukutoshin, name: 副都心線, name_en: Fukutoshin Line, operator: tokyo-metro,
+      color: "#9C5E31", phase: 2, enabled: false, underground: full,
+      n02_match: { operator: 東京地下鉄, line: 13号線副都心線 }, mt3d_id: TokyoMetro.Fukutoshin }
+  - { id: toei.asakusa, name: 浅草線, name_en: Asakusa Line, operator: toei,
+      color: "#E85298", phase: 2, enabled: false, underground: full,
+      n02_match: { operator: 東京都, line: 1号線浅草線 }, mt3d_id: Toei.Asakusa }
+  - { id: toei.mita, name: 三田線, name_en: Mita Line, operator: toei,
+      color: "#0079C2", phase: 2, enabled: false, underground: partial,
+      n02_match: { operator: 東京都, line: 6号線三田線 }, mt3d_id: Toei.Mita }
+  - { id: toei.shinjuku, name: 新宿線, name_en: Shinjuku Line, operator: toei,
+      color: "#6CBB5A", phase: 2, enabled: false, underground: partial,
+      n02_match: { operator: 東京都, line: 10号線新宿線 }, mt3d_id: Toei.Shinjuku }
+
+  # ========== Phase 3: JR・私鉄の地下区間 ==========
+  # 坑口(地下区間の切り出し)のスキーマ拡張とともに追加する。例:
+  #   jr-east.sobu-rapid(総武快速線 錦糸町〜品川), twr.rinkai(りんかい線),
+  #   jr-east.keiyo(京葉線 東京〜潮見), tokyu.shin-yokohama 等

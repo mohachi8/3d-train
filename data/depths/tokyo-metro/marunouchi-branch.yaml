@@ -1,0 +1,29 @@
+# 丸ノ内線 方南町支線 駅深度データ
+#
+# 公表値・編纂値が見つかっていないため全駅推定 (2026-06 調査)。
+line_id: tokyo-metro.marunouchi-branch
+default_platform:
+  length_m: 120
+  width_m: 10
+  height_m: 5
+stations:
+  - id: nakano-sakaue
+    name: 中野坂上
+    platforms:
+      - { id: branch, depth_m: 9.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 本線ホームと同レベルの浅い開削構造から", method: estimated-from-structure }] }
+  - id: nakano-shimbashi
+    name: 中野新橋
+    platforms:
+      - { id: main, depth_m: 8.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 開削工法・地下1〜2階構造から", method: estimated-from-structure }] }
+  - id: nakano-fujimicho
+    name: 中野富士見町
+    platforms:
+      - { id: main, depth_m: 7.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 開削工法・地下1〜2階構造から(隣接して地上の中野車両基地)", method: estimated-from-structure }] }
+  - id: honancho
+    name: 方南町
+    platforms:
+      - { id: main, depth_m: 9.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 方南通り直下の開削工法・地下2階構造から", method: estimated-from-structure }] }

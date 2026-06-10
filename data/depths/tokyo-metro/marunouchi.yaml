@@ -1,0 +1,185 @@
+# 丸ノ内線 駅深度データ
+#
+# 丸ノ内線は駅別深度の公表値・編纂値がほとんど見つかっていない(2026-06 調査)。
+# 初期の開削工法路線で「平均深度約9m」(東洋経済 2017)であることと、各駅の階層
+# 構造(B1/B2・地上・高架)から推定した値が中心 (→ confidence: estimated)。
+# 公表値が見つかり次第、値と confidence を置き換えること(docs/data-update-guide.md)。
+line_id: tokyo-metro.marunouchi
+default_platform:
+  length_m: 120   # 6両×18m級
+  width_m: 11
+  height_m: 5
+stations:
+  - id: ogikubo
+    name: 荻窪
+    platforms:
+      - { id: main, depth_m: 12.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 地下2階構造・開削工法の標準深度から", method: estimated-from-structure }] }
+  - id: minami-asagaya
+    name: 南阿佐ケ谷
+    platforms:
+      - { id: main, depth_m: 10.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 青梅街道直下の開削工法・地下2階構造から", method: estimated-from-structure }] }
+  - id: shin-koenji
+    name: 新高円寺
+    platforms:
+      - { id: main, depth_m: 11.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 青梅街道直下の開削工法・地下2階構造から", method: estimated-from-structure }] }
+  - id: higashi-koenji
+    name: 東高円寺
+    platforms:
+      - { id: main, depth_m: 11.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 青梅街道直下の開削工法・地下2階構造から", method: estimated-from-structure }] }
+  - id: shin-nakano
+    name: 新中野
+    platforms:
+      - { id: main, depth_m: 10.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 青梅街道直下の開削工法・地下2階構造から", method: estimated-from-structure }] }
+  - id: nakano-sakaue
+    name: 中野坂上
+    platforms:
+      - { id: main, depth_m: 9.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 地下1〜2階の浅い開削構造(直下を大江戸線が33.4mで通過)", method: estimated-from-structure }] }
+  - id: nishi-shinjuku
+    name: 西新宿
+    platforms:
+      - { id: main, depth_m: 13.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 地下2階構造(1996年開業の追加駅)から", method: estimated-from-structure }] }
+  - id: shinjuku
+    name: 新宿
+    platforms:
+      - id: main
+        depth_m: 13.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "構内図 | 新宿駅/M08 | 東京メトロ(ホームは地下2階)"
+            url: "https://www.tokyometro.jp/station/shinjuku/yardmap/index_print.html"
+          - title: "推定: 地下2階構造の標準深度から"
+            method: estimated-from-structure
+  - id: shinjuku-sanchome
+    name: 新宿三丁目
+    platforms:
+      - { id: main, depth_m: 12.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 地下2階構造から", method: estimated-from-structure }] }
+  - id: shinjuku-gyoemmae
+    name: 新宿御苑前
+    platforms:
+      - { id: main, depth_m: 10.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 開削工法・地下2階構造から", method: estimated-from-structure }] }
+  - id: yotsuya-sanchome
+    name: 四谷三丁目
+    platforms:
+      - { id: main, depth_m: 9.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 開削工法・地下2階構造から", method: estimated-from-structure }] }
+  - id: yotsuya
+    name: 四ツ谷
+    platforms:
+      - id: main
+        depth_m: 0.0
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "四ツ谷駅 - Wikipedia(外濠の掘割部に位置する地上駅)"
+            url: "https://ja.wikipedia.org/wiki/%E5%9B%9B%E3%83%84%E8%B0%B7%E9%A7%85"
+        note: 外濠跡の掘割で地上に顔を出す。ホームはほぼ周辺地表レベル
+  - id: akasaka-mitsuke
+    name: 赤坂見附
+    platforms:
+      - id: main
+        depth_m: 9.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "推定: 銀座線と方向別2層を構成(銀座線上層6.7mと下層の中間値)"
+            method: estimated-from-structure
+  - id: kokkai-gijidomae
+    name: 国会議事堂前
+    platforms:
+      - id: main
+        depth_m: 8.0
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "案内のないB4F 東京の地下鉄にある「謎の階」(乗りものニュース)— 丸ノ内線ホームは地下2階"
+            url: "https://trafficnews.jp/post/99667"
+        note: 同駅で最深の千代田線ホーム(37.9m)とは別。丸ノ内線は浅い
+  - id: kasumigaseki
+    name: 霞ケ関
+    platforms:
+      - { id: main, depth_m: 9.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 開削工法・地下2階構造から", method: estimated-from-structure }] }
+  - id: ginza
+    name: 銀座
+    platforms:
+      - { id: main, depth_m: 7.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 銀座駅で最も浅い丸ノ内線ホーム(地下2階)から", method: estimated-from-structure }] }
+  - id: tokyo
+    name: 東京
+    platforms:
+      - { id: main, depth_m: 11.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 地下2階構造から", method: estimated-from-structure }] }
+  - id: otemachi
+    name: 大手町
+    platforms:
+      - { id: main, depth_m: 9.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 開削工法・地下2階構造から", method: estimated-from-structure }] }
+  - id: awajicho
+    name: 淡路町
+    platforms:
+      - { id: main, depth_m: 8.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 開削工法・地下2階構造から", method: estimated-from-structure }] }
+  - id: ochanomizu
+    name: 御茶ノ水
+    platforms:
+      - id: main
+        depth_m: 5.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "推定: 神田川橋梁(地上)に隣接する浅い駅であることから"
+            method: estimated-from-structure
+        note: 淡路町方で地上に出て神田川を鉄橋で渡る(縦断ヒント profile-hints.yaml 参照)
+  - id: hongo-sanchome
+    name: 本郷三丁目
+    platforms:
+      - { id: main, depth_m: 6.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 浅い開削構造(直下を大江戸線が通過)から", method: estimated-from-structure }] }
+  - id: korakuen
+    name: 後楽園
+    platforms:
+      - id: main
+        depth_m: -8.0
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "後楽園駅 - Wikipedia(丸ノ内線ホームは地上2階の高架)"
+            url: "https://ja.wikipedia.org/wiki/%E5%BE%8C%E6%A5%BD%E5%9C%92%E9%A7%85"
+        note: 高架ホーム(深さは負値)。同駅の南北線(レール面37.5m)との高低差は東京メトロ最大
+  - id: myogadani
+    name: 茗荷谷
+    platforms:
+      - id: main
+        depth_m: 2.0
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "茗荷谷駅 - Wikipedia(半地下構造・後楽園方は地上区間)"
+            url: "https://ja.wikipedia.org/wiki/%E8%8C%97%E8%8D%B7%E8%B0%B7%E9%A7%85"
+  - id: shin-otsuka
+    name: 新大塚
+    platforms:
+      - { id: main, depth_m: 14.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 台地を抜けるやや深い区間であることから", method: estimated-from-structure }] }
+  - id: ikebukuro
+    name: 池袋
+    platforms:
+      - id: main
+        depth_m: 10.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "池袋駅の「東京メトロ丸ノ内線」乗り場(ホームは地下2階)"
+            url: "https://noriba-navi.com/ikebukuro-marunouti"
+          - title: "推定: 地下2階構造の標準深度から"
+            method: estimated-from-structure

@@ -1,0 +1,29 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      # 1) データ検証(スキーマ・カバレッジ・勾配・交差・鮮度)
+      - run: npm run validate:data
+
+      # 2) 決定性チェック: 同じ入力から再ビルドして差分ゼロであること。
+      #    差分が出る場合は「アーティファクトの手編集」か「build:data のコミット忘れ」。
+      - run: npm run build:data
+      - run: git diff --exit-code -- app/public/data
+
+      # 3) 単体テスト・型チェック・アプリビルド
+      - run: npm run test
+      - run: npm run typecheck
+      - run: npm run build

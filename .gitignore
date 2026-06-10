@@ -1,0 +1,12 @@
+# dependencies / build outputs
+node_modules/
+dist/
+*.tsbuildinfo
+
+# 生データ(再取得可能な大容量ファイル)はコミットしない。
+# 抽出済みデータ data/sources/extracted/ はコミットする(オフライン再現性のため)。
+data/sources/raw/
+
+# OS noise
+.DS_Store
+Thumbs.db
