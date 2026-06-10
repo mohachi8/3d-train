@@ -45,7 +45,7 @@
  "stations_file": "stations.json",
  "provenance": {
   "pipeline_version": "0.1.0",
-  "inputs_hash": "42443cbc8cc0660e",
+  "inputs_hash": "f5718b485ab7dfd1",
   "dem_providers": [
    "terrarium"
   ]

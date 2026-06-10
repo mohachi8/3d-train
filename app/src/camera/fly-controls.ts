@@ -13,6 +13,7 @@ export class FlyControls {
   private velocity = new THREE.Vector3();
   private keys = new Set<string>();
   private locked = false;
+  private skipNextMouse = false;
 
   constructor(
     public camera: THREE.PerspectiveCamera,
@@ -29,10 +30,15 @@ export class FlyControls {
     });
     document.addEventListener("pointerlockchange", () => {
       this.locked = document.pointerLockElement === dom;
+      this.skipNextMouse = true; // ロック取得直後の巨大なデルタでカメラが飛ぶのを防ぐ
       if (!this.locked) this.keys.clear();
     });
     document.addEventListener("mousemove", (e) => {
       if (!this.locked) return;
+      if (this.skipNextMouse || Math.abs(e.movementX) > 300 || Math.abs(e.movementY) > 300) {
+        this.skipNextMouse = false;
+        return;
+      }
       this.yaw -= e.movementX * CONFIG.controls.mouseSensitivity;
       this.pitch -= e.movementY * CONFIG.controls.mouseSensitivity;
       this.pitch = Math.max(-Math.PI / 2 + 0.01, Math.min(Math.PI / 2 - 0.01, this.pitch));

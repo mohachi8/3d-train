@@ -85,19 +85,51 @@ export class DemSampler {
     return png;
   }
 
-  /** 地表標高 T.P.[m]。どのプロバイダでも得られなければ undefined。 */
+  /**
+   * 地表標高 T.P.[m]。どのプロバイダでも得られなければ undefined。
+   *
+   * terrarium(SRTM 由来)は表層モデルのため市街地で建物高さが混入する
+   * (大手町で +30m 等を確認)。正のバイアスなので、近傍の最小値を取る
+   * 簡易 DSM→DTM フィルタで道路・水面レベルに寄せる。
+   * gsi(地理院 DEM)は地形モデルなのでフィルタ不要。
+   */
   async elevationAt(p: LonLat): Promise<number | undefined> {
     for (const provider of this.providers) {
-      const t = lonLatToTile(p);
-      const png = await this.loadTile(provider, t.x, t.y);
-      if (!png) continue;
-      const v = this.bilinear(png, provider, t.px, t.py);
+      const v =
+        provider === "terrarium"
+          ? await this.minFiltered(provider, p)
+          : await this.sampleOne(provider, p);
       if (v !== undefined) {
         this.usedProviders.add(provider);
         return v;
       }
     }
     return undefined;
+  }
+
+  private async sampleOne(provider: DemProvider, p: LonLat): Promise<number | undefined> {
+    const t = lonLatToTile(p);
+    const png = await this.loadTile(provider, t.x, t.y);
+    if (!png) return undefined;
+    return this.bilinear(png, provider, t.px, t.py);
+  }
+
+  private async minFiltered(provider: DemProvider, p: LonLat): Promise<number | undefined> {
+    const RADIUS_M = 120;
+    const STEPS = 2; // 5×5 グリッド
+    const dLat = RADIUS_M / 111320;
+    const dLon = RADIUS_M / (111320 * Math.cos((p.lat * Math.PI) / 180));
+    let min: number | undefined;
+    for (let i = -STEPS; i <= STEPS; i++) {
+      for (let j = -STEPS; j <= STEPS; j++) {
+        const v = await this.sampleOne(provider, {
+          lon: p.lon + (j / STEPS) * dLon,
+          lat: p.lat + (i / STEPS) * dLat,
+        });
+        if (v !== undefined && (min === undefined || v < min)) min = v;
+      }
+    }
+    return min;
   }
 
   private bilinear(png: PNG, provider: DemProvider, px: number, py: number): number | undefined {

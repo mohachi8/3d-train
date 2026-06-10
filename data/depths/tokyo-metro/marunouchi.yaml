@@ -133,11 +133,11 @@ stations:
     name: 御茶ノ水
     platforms:
       - id: main
-        depth_m: 5.0
-        depth_datum: ground
+        tp_m: 12.0
+        depth_datum: tp
         confidence: estimated
         sources:
-          - title: "推定: 神田川橋梁(地上)に隣接する浅い駅であることから"
+          - title: "推定: 北岸の街路面(T.P.約17m)から地下1階相当。神田川渓谷地形のためDEMの地表値が使えず海抜直指定"
             method: estimated-from-structure
         note: 淡路町方で地上に出て神田川を鉄橋で渡る(縦断ヒント profile-hints.yaml 参照)
   - id: hongo-sanchome
