@@ -1,0 +1,221 @@
+# 日比谷線 駅深度データ(1961-64年開業、開削工法中心の浅い路線)
+#
+# 推定値(estimated)は出典が見つかり次第置き換える(docs/data-update-guide.md レシピ1)。
+line_id: tokyo-metro.hibiya
+default_platform:
+  length_m: 130
+  width_m: 10
+  height_m: 5
+stations:
+- id: naka-meguro
+  name: 中目黒
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id002
+      title: '推定: 高架・地上駅(ホーム高さの標準値)'
+      method: estimated-from-structure
+    note: 高架駅(東急管理)。山手通り上の高架ホーム
+- id: ebisu
+  name: 恵比寿
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id001
+      title: '推定: 建設年代・工法・周辺駅の階層構造からの概算'
+      method: estimated-from-structure
+- id: hiroo
+  name: 広尾
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 先入観と全く違う『東京の地下鉄』本当の深さ | 東洋経済オンライン
+      url: https://toyokeizai.net/articles/-/185149
+    note: 概数。階段52段(約10m相当)を下るとホームがちょうど海抜0m付近、と記事に記載。
+- id: roppongi
+  name: 六本木
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kamiyacho
+  name: 神谷町
+  platforms:
+  - id: main
+    depth_m: 11.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: toranomon-hills
+  name: 虎ノ門ヒルズ
+  platforms:
+  - id: main
+    depth_m: 16.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 2020年開業。銀座線虎ノ門の下を潜る区間
+- id: kasumigaseki
+  name: 霞ケ関
+  platforms:
+  - id: main
+    depth_m: 15.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 丸ノ内線の下
+- id: hibiya
+  name: 日比谷
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: ginza
+  name: 銀座
+  platforms:
+  - id: main
+    depth_m: 15.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 銀座線・丸ノ内線の下を潜る
+- id: higashi-ginza
+  name: 東銀座
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: tsukiji
+  name: 築地
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: hatchobori
+  name: 八丁堀
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kayabacho
+  name: 茅場町
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: ningyocho
+  name: 人形町
+  platforms:
+  - id: main
+    depth_m: 17.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 浅草線の下を潜る(1962年開業時に1960年開業の浅草線を回避)
+- id: kodemmacho
+  name: 小伝馬町
+  platforms:
+  - id: main
+    depth_m: 9.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: akihabara
+  name: 秋葉原
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: naka-okachimachi
+  name: 仲御徒町
+  platforms:
+  - id: main
+    depth_m: 9.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: ueno
+  name: 上野
+  platforms:
+  - id: main
+    depth_m: 16.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 銀座線上野の下を潜る
+- id: iriya
+  name: 入谷
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: minowa
+  name: 三ノ輪
+  platforms:
+  - id: main
+    depth_m: 9.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: minami-senju
+  name: 南千住
+  platforms:
+  - id: main
+    depth_m: -6.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 地上区間(常磐線に並走する高架)
+- id: kita-senju
+  name: 北千住
+  platforms:
+  - id: main
+    depth_m: -10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架ホーム(3階)

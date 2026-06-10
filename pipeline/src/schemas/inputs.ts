@@ -58,6 +58,20 @@ export const LineSchema = z.object({
     .string()
     .optional()
     .describe("mini-tokyo-3d coordinates.json の路線ID(ブートストラップ用)"),
+  exclude_stations: z
+    .array(z.string())
+    .optional()
+    .describe("抽出から除外する駅名(他社直通区間の駅など)"),
+  clip_bbox: z
+    .tuple([z.number(), z.number(), z.number(), z.number()])
+    .optional()
+    .describe(
+      "[minLon, minLat, maxLon, maxLat]。指定すると bbox に完全に含まれる線形チャンク・駅のみ抽出する(支線の切り出し用)"
+    ),
+  exclude_bbox: z
+    .tuple([z.number(), z.number(), z.number(), z.number()])
+    .optional()
+    .describe("bbox に完全に含まれる線形チャンクを除外する(支線を本線から除く用)"),
   tunnel_radius_m: z.number().default(4.5).describe("描画用トンネル半径(複線シールド近似)"),
 });
 

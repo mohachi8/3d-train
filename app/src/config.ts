@@ -14,9 +14,9 @@ export const CONFIG = {
     initial: { x: 500, y: 1500, z: 800, yaw: Math.PI * 0.75, pitch: -0.55 },
   },
   controls: {
-    speedMin: 2,
-    speedMax: 600,
-    speedInitial: 60,
+    speedMin: 4,
+    speedMax: 1200,
+    speedInitial: 120,
     damping: 8,
     mouseSensitivity: 0.0022,
   },

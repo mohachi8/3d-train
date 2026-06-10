@@ -1,0 +1,238 @@
+# 有楽町線 駅深度データ(1974-88年開業)
+#
+# 推定値(estimated)は出典が見つかり次第置き換える(docs/data-update-guide.md レシピ1)。
+line_id: tokyo-metro.yurakucho
+default_platform:
+  length_m: 205
+  width_m: 11
+  height_m: 5
+stations:
+- id: wakoshi
+  name: 和光市
+  platforms:
+  - id: main
+    depth_m: -2.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id002
+      title: '推定: 高架・地上駅(ホーム高さの標準値)'
+      method: estimated-from-structure
+    note: 地上駅(東武東上線と共用)
+- id: chikatetsu-narimasu
+  name: 地下鉄成増
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id001
+      title: '推定: 建設年代・工法・周辺駅の階層構造からの概算'
+      method: estimated-from-structure
+- id: chikatetsu-akatsuka
+  name: 地下鉄赤塚
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: heiwadai
+  name: 平和台
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: hikawadai
+  name: 氷川台
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kotake-mukaihara
+  name: 小竹向原
+  platforms:
+  - id: main
+    depth_m: 15.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: senkawa
+  name: 千川
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kanamecho
+  name: 要町
+  platforms:
+  - id: main
+    depth_m: 16.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: ikebukuro
+  name: 池袋
+  platforms:
+  - id: main
+    depth_m: 15.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: higashi-ikebukuro
+  name: 東池袋
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: gokokuji
+  name: 護国寺
+  platforms:
+  - id: main
+    depth_m: 17.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: edogawabashi
+  name: 江戸川橋
+  platforms:
+  - id: main
+    depth_m: 16.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: iidabashi
+  name: 飯田橋
+  platforms:
+  - id: main
+    depth_m: 22.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 東西線の下
+- id: ichigaya
+  name: 市ケ谷
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 外濠沿いの浅い駅(新宿線の上)
+- id: kojimachi
+  name: 麴町
+  platforms:
+  - id: main
+    depth_m: 18.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: nagatacho
+  name: 永田町
+  platforms:
+  - id: main
+    depth_m: 23.7
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 永田町駅 - Wikipedia(有楽町線ホームは深さ23.7m、有楽町線で最深)
+      url: https://ja.wikipedia.org/wiki/永田町駅
+    note: 地表からレール面まで23.7m。有楽町線(副都心線共用区間を除く)で最も深い。半蔵門線ホームは36.0m(別エントリ)。 / 深い駅(地下4〜5階相当)
+- id: sakuradamon
+  name: 桜田門
+  platforms:
+  - id: main
+    depth_m: 18.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: yurakucho
+  name: 有楽町
+  platforms:
+  - id: main
+    depth_m: 21.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 千代田線の下
+- id: ginza-itchome
+  name: 銀座一丁目
+  platforms:
+  - id: main
+    depth_m: 19.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 銀座線・浅草線の下
+- id: shintomicho
+  name: 新富町
+  platforms:
+  - id: main
+    depth_m: 18.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 日比谷線の下
+- id: tsukishima
+  name: 月島
+  platforms:
+  - id: main
+    depth_m: 15.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: toyosu
+  name: 豊洲
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: tatsumi
+  name: 辰巳
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: shin-kiba
+  name: 新木場
+  platforms:
+  - id: main
+    depth_m: -3.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 地上(高架)駅

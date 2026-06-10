@@ -1,0 +1,234 @@
+# 東西線 駅深度データ(南砂町以東は高架区間)
+#
+# 推定値(estimated)は出典が見つかり次第置き換える(docs/data-update-guide.md レシピ1)。
+line_id: tokyo-metro.tozai
+default_platform:
+  length_m: 205
+  width_m: 12
+  height_m: 5
+stations:
+- id: nakano
+  name: 中野
+  platforms:
+  - id: main
+    depth_m: 0.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id002
+      title: '推定: 高架・地上駅(ホーム高さの標準値)'
+      method: estimated-from-structure
+    note: 地上駅(JR中央線と共用)
+- id: ochiai
+  name: 落合
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id001
+      title: '推定: 建設年代・工法・周辺駅の階層構造からの概算'
+      method: estimated-from-structure
+- id: takadanobaba
+  name: 高田馬場
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: waseda
+  name: 早稲田
+  platforms:
+  - id: main
+    depth_m: 15.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kagurazaka
+  name: 神楽坂
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: iidabashi
+  name: 飯田橋
+  platforms:
+  - id: main
+    depth_m: 16.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kudanshita
+  name: 九段下
+  platforms:
+  - id: main
+    depth_m: 15.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: takebashi
+  name: 竹橋
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: otemachi
+  name: 大手町
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 大手町の重層構造で丸ノ内線の下・千代田線(14.4m)の上
+- id: nihombashi
+  name: 日本橋
+  platforms:
+  - id: main
+    depth_m: 20.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 銀座線・浅草線の下を潜る
+- id: kayabacho
+  name: 茅場町
+  platforms:
+  - id: main
+    depth_m: 20.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 日比谷線の下を潜る
+- id: monzen-nakacho
+  name: 門前仲町
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kiba
+  name: 木場
+  platforms:
+  - id: main
+    depth_m: 16.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: シールド工法区間
+- id: toyocho
+  name: 東陽町
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: minami-sunamachi
+  name: 南砂町
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 東側で地上に出て荒川を橋梁で渡る
+- id: nishi-kasai
+  name: 西葛西
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅
+- id: kasai
+  name: 葛西
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅
+- id: urayasu
+  name: 浦安
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅
+- id: minami-gyotoku
+  name: 南行徳
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅
+- id: gyotoku
+  name: 行徳
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅
+- id: myoden
+  name: 妙典
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅
+- id: baraki-nakayama
+  name: 原木中山
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅
+- id: nishi-funabashi
+  name: 西船橋
+  platforms:
+  - id: main
+    depth_m: -6.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架ホーム(JR・東葉高速接続)

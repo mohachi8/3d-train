@@ -1,0 +1,181 @@
+# 副都心線 駅深度データ(2008年開業、既存路線の下を通る深い路線)
+#
+# 推定値(estimated)は出典が見つかり次第置き換える(docs/data-update-guide.md レシピ1)。
+line_id: tokyo-metro.fukutoshin
+default_platform:
+  length_m: 205
+  width_m: 11
+  height_m: 5
+stations:
+- id: wakoshi
+  name: 和光市
+  platforms:
+  - id: main
+    depth_m: -2.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - title: '推定: 高架・地上駅(ホーム高さの標準値)'
+      method: estimated-from-structure
+    note: 地上駅(有楽町線と共用)
+- id: chikatetsu-narimasu
+  name: 地下鉄成増
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id001
+      title: '推定: 建設年代・工法・周辺駅の階層構造からの概算'
+      method: estimated-from-structure
+    note: 有楽町線と共用区間
+- id: chikatetsu-akatsuka
+  name: 地下鉄赤塚
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 有楽町線と共用区間
+- id: heiwadai
+  name: 平和台
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 有楽町線と共用区間
+- id: hikawadai
+  name: 氷川台
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 有楽町線と共用区間
+- id: kotake-mukaihara
+  name: 小竹向原
+  platforms:
+  - id: main
+    depth_m: 15.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: senkawa
+  name: 千川
+  platforms:
+  - id: main
+    depth_m: 21.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 有楽町線の下の別層ホーム
+- id: kanamecho
+  name: 要町
+  platforms:
+  - id: main
+    depth_m: 23.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 有楽町線の下の別層ホーム
+- id: ikebukuro
+  name: 池袋
+  platforms:
+  - id: main
+    depth_m: 27.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 既存路線の下を通るため深い
+- id: zoshigaya
+  name: 雑司が谷
+  platforms:
+  - id: main
+    depth_m: 33.8
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 東京のモグラ駅、深さランキング TOP10 | ニッポン旅マガジン(9位 副都心線雑司が谷 33.8m)
+      url: https://tabi-mag.jp/underground-stationtk/
+    - title: 東京のモグラ駅、深さランキング TOP10 | 東京とりっぷ
+      url: https://tokyo-trip.org/newstopics/underground-stationtk/
+    note: 東京の地下鉄で9番目に深い駅。
+- id: nishi-waseda
+  name: 西早稲田
+  platforms:
+  - id: main
+    depth_m: 30.0
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 西早稲田駅 - Wikipedia(ホームは地表から約30m、東西線・神田川を避けるため)
+      url: https://ja.wikipedia.org/wiki/西早稲田駅
+    note: 概数(約30m)。東西線および神田川の下を避けて深くなった。ホーム階は地下3階。 / 東西線の下を潜る
+- id: higashi-shinjuku
+  name: 東新宿
+  platforms:
+  - id: main
+    depth_m: 35.4
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 東新宿駅 - Wikipedia(B線(池袋方面)で地表からレール面まで35.4m)
+      url: https://ja.wikipedia.org/wiki/東新宿駅
+    - title: 東京のモグラ駅、深さランキング TOP10 | ニッポン旅マガジン(7位 35.4m)
+      url: https://tabi-mag.jp/underground-stationtk/
+    note: 上下2層構造のB線(下層)基準。東京メトロで4番目に深い。
+- id: shinjuku-sanchome
+  name: 新宿三丁目
+  platforms:
+  - id: main
+    depth_m: 30.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 丸ノ内線・新宿線の下の地下5階
+- id: kita-sando
+  name: 北参道
+  platforms:
+  - id: main
+    depth_m: 16.0
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 北参道駅 - Wikipedia(地表から約16mと副都心線新規開業区間では浅い)
+      url: https://ja.wikipedia.org/wiki/北参道駅
+    note: 概数(約16m)。
+- id: meiji-jingumae
+  name: 明治神宮前〈原宿〉
+  platforms:
+  - id: main
+    depth_m: 25.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: shibuya
+  name: 渋谷
+  platforms:
+  - id: main
+    depth_m: 30.0
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 渋谷鉄道散歩No.4 渋谷ダンジョン地下編(地下5階の「地宙船」ホーム)|シブヤ散歩新聞
+      url: https://note.com/shibuyasampo/n/n7efe8fadf4b8
+    - title: 渋谷駅はいまが一番ややこしい！ 地上3階から地下5階まで | 乗りものニュース
+      url: https://trafficnews.jp/post/81473
+    note: 概数(約30m程度・地下5階)。東急東横線と共用ホーム。確度低めの編纂値のため要追加裏取り。 / 地下5階(東急東横線と共用)

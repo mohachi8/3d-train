@@ -17,8 +17,9 @@ import {
   loadYaml,
 } from "../lib/context.js";
 import { ManifestSchema } from "../schemas/manifest.js";
-import { LocalFrame, type LonLat } from "../lib/proj.js";
-import { assembleChain, resample, projectPoint, type SampledPath } from "../lib/linework.js";
+import { LocalFrame } from "../lib/proj.js";
+import { projectPoint, type SampledPath } from "../lib/linework.js";
+import { buildLinePath } from "../lib/assemble.js";
 import { Pchip, type ControlPoint } from "../lib/interpolate.js";
 import { DemSampler } from "../lib/dem.js";
 import {
@@ -28,7 +29,6 @@ import {
   type IndexArtifact,
 } from "../schemas/artifacts.js";
 
-const SAMPLE_STEP_M = 20;
 /** PCHIP 制御点での勾配上限(50‰)。地下鉄の実勾配は概ね 35‰ 以下 */
 const MAX_KNOT_GRADIENT = 0.05;
 
@@ -62,41 +62,26 @@ export async function build(onlyLine?: string): Promise<void> {
       throw new Error(`${line.id}: 深度ファイル data/depths/${line.id.replace(".", "/")}.yaml がありません`);
     }
 
-    // --- 平面線形 ---
-    const trackFeatures = extracted.features.filter((f) => f.properties.kind === "track");
-    const chunks = trackFeatures.map((f) =>
-      (f.geometry.coordinates as [number, number][]).map(([lon, lat]) => frame.toLocal({ lon, lat }))
-    );
-    const ranks = trackFeatures.map((f) =>
-      (f.properties as { role?: string }).role === "sub" ? 2 : 0
-    );
-    const chain = assembleChain(chunks, undefined, ranks);
-    if (chain.dropped.length > 0) {
+    // --- 平面線形(結合+直通区間トリミング) ---
+    const built = buildLinePath(extracted, frame);
+    const path: SampledPath = built.path;
+    if (built.droppedChunks > 0 || built.trimmedM > 0) {
       console.log(
-        `  [info] ${line.id}: 連絡線とみなして除外したチャンク: ` +
-          chain.dropped.map((i) => `#${i}(${chunks[i]!.length}点)`).join(", ")
+        `  [info] ${line.id}: 連絡線チャンク除外=${built.droppedChunks}本, ` +
+          `直通区間トリミング=${(built.trimmedM / 1000).toFixed(1)}km`
       );
     }
-    const path: SampledPath = resample(chain.path, SAMPLE_STEP_M);
     const length = path.s[path.s.length - 1]!;
 
     // --- 駅の弧長位置と標高制御点 ---
-    const extStations = new Map<string, LonLat>();
-    for (const f of extracted.features) {
-      if (f.properties.kind === "station") {
-        const [lon, lat] = f.geometry.coordinates as [number, number];
-        extStations.set(f.properties.name, { lon: lon!, lat: lat! });
-      }
-    }
-
     const controls: ControlPoint[] = [];
     for (const st of depthFile.stations) {
       const matchName = st.match_name ?? st.name;
-      const lonlat = extStations.get(matchName);
-      if (!lonlat) {
+      const local = built.stations.get(matchName);
+      if (!local) {
         throw new Error(`${line.id}/${st.id}: 線形データに駅「${matchName}」が見つかりません`);
       }
-      const local = frame.toLocal(lonlat);
+      const lonlat = frame.toLonLat(local);
       const passes = projectPoint(path, local);
       if (passes.length === 0) {
         throw new Error(`${line.id}/${st.id}: 駅が線形から 150m 以内にありません`);

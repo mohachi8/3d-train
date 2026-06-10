@@ -1,24 +1,162 @@
 # 路線交差の上下関係の明示制約。
 # 検証(crossing-check)が自動検出した交差点とこの制約を突き合わせ、
-# 上下が逆なら error、離隔不足なら warn を出す。
+# 上下が逆なら error、離隔が min_separation_m 未満なら warn を出す。
+#
+# 都心の乗換駅は床間隔 3〜6m で重層しているため、min_separation_m は
+# 実構造に合わせて 6.5m より小さい値を許容している。
 crossings:
+  # ===== Phase 1 で登録済み =====
   - lines: [tokyo-metro.ginza, toei.oedo]
     near: { lonlat: [139.7240, 35.6729], radius_m: 300 }
-    order: [tokyo-metro.ginza, toei.oedo]   # 青山一丁目: 銀座線(7.7m)が上、大江戸線(約28m)が下
+    order: [tokyo-metro.ginza, toei.oedo]
     min_separation_m: 6.5
     note: 青山一丁目駅交差部
   - lines: [tokyo-metro.ginza, toei.oedo]
     near: { lonlat: [139.7731, 35.7078], radius_m: 300 }
-    order: [tokyo-metro.ginza, toei.oedo]   # 上野広小路/上野御徒町: 銀座線(約8m)が上
+    order: [tokyo-metro.ginza, toei.oedo]
     min_separation_m: 6.5
     note: 上野広小路駅交差部
   - lines: [tokyo-metro.marunouchi, toei.oedo]
     near: { lonlat: [139.7603, 35.7071], radius_m: 300 }
-    order: [tokyo-metro.marunouchi, toei.oedo]  # 本郷三丁目: 丸ノ内線(約6m)が上
+    order: [tokyo-metro.marunouchi, toei.oedo]
     min_separation_m: 6.5
     note: 本郷三丁目駅交差部
   - lines: [tokyo-metro.marunouchi, toei.oedo]
     near: { lonlat: [139.6822, 35.6971], radius_m: 400 }
-    order: [tokyo-metro.marunouchi, toei.oedo]  # 中野坂上: 丸ノ内線(約9m)が上、大江戸線(33.4m)が下
+    order: [tokyo-metro.marunouchi, toei.oedo]
     min_separation_m: 6.5
     note: 中野坂上駅交差部
+
+  # ===== 大手町の重層構造(丸ノ内 > 東西 > 千代田 > 三田 > 半蔵門) =====
+  - lines: [tokyo-metro.marunouchi, tokyo-metro.tozai]
+    near: { lonlat: [139.7657, 35.6848], radius_m: 350 }
+    order: [tokyo-metro.marunouchi, tokyo-metro.tozai]
+    min_separation_m: 2
+    note: 大手町。床間隔の小さい重層交差
+  - lines: [tokyo-metro.tozai, tokyo-metro.chiyoda]
+    near: { lonlat: [139.7632, 35.6853], radius_m: 350 }
+    order: [tokyo-metro.tozai, tokyo-metro.chiyoda]
+    min_separation_m: 2
+    note: 大手町。東西線(地下2階)の下に千代田線(地下2階・14.4m)
+  - lines: [tokyo-metro.chiyoda, toei.mita]
+    near: { lonlat: [139.7635, 35.6860], radius_m: 350 }
+    order: [tokyo-metro.chiyoda, toei.mita]
+    min_separation_m: 3
+    note: 大手町。千代田線の下に三田線(地下4階)
+  - lines: [toei.mita, tokyo-metro.hanzomon]
+    near: { lonlat: [139.7635, 35.6870], radius_m: 350 }
+    order: [toei.mita, tokyo-metro.hanzomon]
+    min_separation_m: 3
+    note: 大手町。最下層は半蔵門線(地下5階)
+
+  # ===== 日比谷・有楽町の重層(日比谷 > 千代田 > 有楽町 > 三田) =====
+  - lines: [tokyo-metro.hibiya, tokyo-metro.chiyoda]
+    near: { lonlat: [139.7595, 35.6750], radius_m: 350 }
+    order: [tokyo-metro.hibiya, tokyo-metro.chiyoda]
+    min_separation_m: 3
+    note: 日比谷駅交差部
+  - lines: [tokyo-metro.chiyoda, tokyo-metro.yurakucho]
+    near: { lonlat: [139.7604, 35.6764], radius_m: 350 }
+    order: [tokyo-metro.chiyoda, tokyo-metro.yurakucho]
+    min_separation_m: 2
+    note: 日比谷〜有楽町。千代田線の下を有楽町線が潜る
+  - lines: [tokyo-metro.yurakucho, toei.mita]
+    near: { lonlat: [139.7602, 35.6765], radius_m: 350 }
+    order: [tokyo-metro.yurakucho, toei.mita]
+    min_separation_m: 3
+    note: 日比谷。三田線は地下6階で最深
+  - lines: [tokyo-metro.chiyoda, toei.mita]
+    near: { lonlat: [139.7565, 35.6714], radius_m: 400 }
+    order: [tokyo-metro.chiyoda, toei.mita]
+    min_separation_m: 2
+    note: 内幸町〜日比谷間の交差
+
+  # ===== 霞ケ関(銀座・丸ノ内の下を日比谷線、さらに下に千代田線) =====
+  - lines: [tokyo-metro.ginza, tokyo-metro.hibiya]
+    near: { lonlat: [139.7493, 35.6704], radius_m: 300 }
+    order: [tokyo-metro.ginza, tokyo-metro.hibiya]
+    min_separation_m: 4
+    note: 虎ノ門〜虎ノ門ヒルズ交差部
+  - lines: [tokyo-metro.marunouchi, tokyo-metro.hibiya]
+    near: { lonlat: [139.7515, 35.6748], radius_m: 300 }
+    order: [tokyo-metro.marunouchi, tokyo-metro.hibiya]
+    min_separation_m: 4
+    note: 霞ケ関駅交差部
+  - lines: [tokyo-metro.hibiya, tokyo-metro.chiyoda]
+    near: { lonlat: [139.7506, 35.6730], radius_m: 300 }
+    order: [tokyo-metro.hibiya, tokyo-metro.chiyoda]
+    min_separation_m: 2.5
+    note: 霞ケ関駅交差部(千代田線が下)
+
+  # ===== 銀座エリア =====
+  - lines: [tokyo-metro.ginza, tokyo-metro.hibiya]
+    near: { lonlat: [139.7651, 35.6713], radius_m: 300 }
+    order: [tokyo-metro.ginza, tokyo-metro.hibiya]
+    min_separation_m: 4
+    note: 銀座駅。銀座線(B2)の下を日比谷線が潜る
+  - lines: [tokyo-metro.hibiya, toei.asakusa]
+    near: { lonlat: [139.7670, 35.6697], radius_m: 300 }
+    order: [tokyo-metro.hibiya, toei.asakusa]
+    min_separation_m: 4
+    note: 東銀座駅。同時施工の重層駅(日比谷線B2・浅草線B3)
+  - lines: [toei.asakusa, tokyo-metro.yurakucho]
+    near: { lonlat: [139.7697, 35.6726], radius_m: 300 }
+    order: [toei.asakusa, tokyo-metro.yurakucho]
+    min_separation_m: 3
+    note: 東銀座〜銀座一丁目間の交差
+
+  # ===== 日本橋・人形町・茅場町エリア =====
+  - lines: [toei.asakusa, tokyo-metro.hibiya]
+    near: { lonlat: [139.7822, 35.6864], radius_m: 300 }
+    order: [toei.asakusa, tokyo-metro.hibiya]
+    min_separation_m: 4
+    note: 人形町駅。浅草線(1960年・浅い)の下を日比谷線(1962年)が潜る
+  - lines: [tokyo-metro.hibiya, tokyo-metro.hanzomon]
+    near: { lonlat: [139.7835, 35.6849], radius_m: 400 }
+    order: [tokyo-metro.hibiya, tokyo-metro.hanzomon]
+    min_separation_m: 2
+    note: 人形町〜水天宮前の交差。半蔵門線(1990年)が下
+  - lines: [toei.asakusa, toei.shinjuku]
+    near: { lonlat: [139.7849, 35.6903], radius_m: 300 }
+    order: [toei.asakusa, toei.shinjuku]
+    min_separation_m: 3
+    note: 東日本橋〜馬喰横山の交差(連絡通路あり)。新宿線が下
+
+  # ===== 神保町・九段下 =====
+  - lines: [toei.mita, toei.shinjuku]
+    near: { lonlat: [139.7580, 35.6960], radius_m: 300 }
+    order: [toei.mita, toei.shinjuku]
+    min_separation_m: 4
+    note: 神保町駅。三田線(B2)>新宿線(B3)>半蔵門線(B4)
+  - lines: [tokyo-metro.tozai, toei.shinjuku]
+    near: { lonlat: [139.7514, 35.6955], radius_m: 300 }
+    order: [tokyo-metro.tozai, toei.shinjuku]
+    min_separation_m: 4
+    note: 九段下駅。東西線(浅い)の下に新宿線・半蔵門線
+
+  # ===== その他の都心交差 =====
+  - lines: [toei.shinjuku, tokyo-metro.chiyoda]
+    near: { lonlat: [139.7652, 35.6946], radius_m: 300 }
+    order: [toei.shinjuku, tokyo-metro.chiyoda]
+    min_separation_m: 3
+    note: 小川町〜新御茶ノ水。千代田線新御茶ノ水(31m)が下
+  - lines: [tokyo-metro.hibiya, toei.shinjuku]
+    near: { lonlat: [139.7759, 35.6957], radius_m: 300 }
+    order: [tokyo-metro.hibiya, toei.shinjuku]
+    min_separation_m: 4
+    note: 秋葉原〜岩本町の交差。新宿線が下
+  - lines: [tokyo-metro.yurakucho, toei.shinjuku]
+    near: { lonlat: [139.7360, 35.6911], radius_m: 300 }
+    order: [tokyo-metro.yurakucho, toei.shinjuku]
+    min_separation_m: 3
+    note: 市ケ谷駅。有楽町線(外濠沿いの浅い駅)の下を新宿線が潜る
+  - lines: [tokyo-metro.namboku, tokyo-metro.hanzomon]
+    near: { lonlat: [139.7392, 35.6785], radius_m: 300 }
+    order: [tokyo-metro.namboku, tokyo-metro.hanzomon]
+    min_separation_m: 4
+    note: 永田町駅。半蔵門線は36.0m(同線最深)で南北線より下
+  - lines: [tokyo-metro.tozai, tokyo-metro.fukutoshin]
+    near: { lonlat: [139.7101, 35.7115], radius_m: 500 }
+    order: [tokyo-metro.tozai, tokyo-metro.fukutoshin]
+    min_separation_m: 4
+    note: 高田馬場〜西早稲田。副都心線(2008年)が東西線の下を潜る

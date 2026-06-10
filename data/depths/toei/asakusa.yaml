@@ -1,0 +1,195 @@
+# 浅草線 駅深度データ(1960-68年開業、開削工法の浅い路線)
+#
+# 推定値(estimated)は出典が見つかり次第置き換える(docs/data-update-guide.md レシピ1)。
+line_id: toei.asakusa
+default_platform:
+  length_m: 150
+  width_m: 10
+  height_m: 5
+stations:
+- id: nishi-magome
+  name: 西馬込
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id001
+      title: '推定: 建設年代・工法・周辺駅の階層構造からの概算'
+      method: estimated-from-structure
+- id: magome
+  name: 馬込
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: nakanobu
+  name: 中延
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: togoshi
+  name: 戸越
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: gotanda
+  name: 五反田
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: takanawadai
+  name: 高輪台
+  platforms:
+  - id: main
+    depth_m: 18.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 台地下のやや深い駅
+- id: sengakuji
+  name: 泉岳寺
+  platforms:
+  - id: main
+    depth_m: 11.4
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 泉岳寺駅 - Wikipedia
+      url: https://ja.wikipedia.org/wiki/%E6%B3%89%E5%B2%B3%E5%AF%BA%E9%A7%85
+    note: 深さ11.4m(検索スニペット由来。Wikipedia本文の再確認を推奨)。京急本線との接続駅、2面4線
+- id: mita
+  name: 三田
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: daimon
+  name: 大門
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: shimbashi
+  name: 新橋
+  platforms:
+  - id: main
+    depth_m: 11.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: higashi-ginza
+  name: 東銀座
+  platforms:
+  - id: main
+    depth_m: 17.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 日比谷線(地下2階)の下の地下3階ホーム
+- id: takaracho
+  name: 宝町
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: nihombashi
+  name: 日本橋
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: ningyocho
+  name: 人形町
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: higashi-nihombashi
+  name: 東日本橋
+  platforms:
+  - id: main
+    depth_m: 11.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: asakusabashi
+  name: 浅草橋
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kuramae
+  name: 蔵前
+  platforms:
+  - id: main
+    depth_m: 9.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: asakusa
+  name: 浅草
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: honjo-azumabashi
+  name: 本所吾妻橋
+  platforms:
+  - id: main
+    depth_m: 11.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: oshiage
+  name: 押上
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001

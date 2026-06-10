@@ -1,0 +1,225 @@
+# 千代田線 駅深度データ(1969-78年開業)
+#
+# 推定値(estimated)は出典が見つかり次第置き換える(docs/data-update-guide.md レシピ1)。
+line_id: tokyo-metro.chiyoda
+default_platform:
+  length_m: 205
+  width_m: 11
+  height_m: 5
+stations:
+- id: yoyogi-uehara
+  name: 代々木上原
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id002
+      title: '推定: 高架・地上駅(ホーム高さの標準値)'
+      method: estimated-from-structure
+    note: 高架駅(小田急と共用)
+- id: yoyogi-koen
+  name: 代々木公園
+  platforms:
+  - id: main
+    depth_m: 11.2
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 地表からレール面まで。地下2階。
+- id: meiji-jingumae
+  name: 明治神宮前〈原宿〉
+  platforms:
+  - id: main
+    depth_m: 17.4
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 千代田線ホーム(地下3階)。副都心線ホームは別(地下5階、深度値未確認)。
+- id: omote-sando
+  name: 表参道
+  platforms:
+  - id: main
+    depth_m: 18.8
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 千代田線ホーム、地下3階。
+- id: nogizaka
+  name: 乃木坂
+  platforms:
+  - id: main
+    depth_m: 19.4
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 地下2階。
+- id: akasaka
+  name: 赤坂
+  platforms:
+  - id: main
+    depth_m: 15.0
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 地下2階。
+- id: kokkai-gijidomae
+  name: 国会議事堂前
+  platforms:
+  - id: main
+    depth_m: 37.9
+    depth_datum: ground
+    confidence: official
+    sources:
+    - title: '東京メトロ【公式】X(2020年): 後楽園駅37.5mは国会議事堂前駅の37.9mに次いで2番目に深い'
+      url: https://x.com/tokyometro_info/status/1308587214905851904
+    - title: 東京のモグラ駅、深さランキング TOP10 | ニッポン旅マガジン
+      url: https://tabi-mag.jp/underground-stationtk/
+    - title: 国会議事堂前駅 - Wikipedia
+      url: https://ja.wikipedia.org/wiki/国会議事堂前駅
+    note: 地表からレール面まで37.9m。東京メトロ最深、地下6階。台地上のため海抜(T.P.)ではプラス(東洋経済 https://toyokeizai.net/articles/-/185149)。 / 東京メトロで最も深いホーム(地下6階)
+- id: kasumigaseki
+  name: 霞ケ関
+  platforms:
+  - id: main
+    depth_m: 17.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id001
+      title: '推定: 建設年代・工法・周辺駅の階層構造からの概算'
+      method: estimated-from-structure
+- id: hibiya
+  name: 日比谷
+  platforms:
+  - id: main
+    depth_m: 19.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 日比谷線の下
+- id: nijubashimae
+  name: 二重橋前〈丸の内〉
+  platforms:
+  - id: main
+    depth_m: 15.3
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 地下2階。
+- id: otemachi
+  name: 大手町
+  platforms:
+  - id: main
+    depth_m: 14.4
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 大手町駅の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63830125
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 千代田線ホーム、地下2階。
+- id: shin-ochanomizu
+  name: 新御茶ノ水
+  platforms:
+  - id: main
+    depth_m: 24.3
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 新御茶ノ水駅 - Wikipedia(駅中心部の地表からレール面まで24.3m、千代田線で2番目に深い)
+      url: https://ja.wikipedia.org/wiki/新御茶ノ水駅
+    - title: '毎日新聞校閲センターX: 1969年開業時『地下34m・日本一深い』と紹介(聖橋口側の斜坑部基準とみられる)'
+      url: https://x.com/mainichi_kotoba/status/281642635259678720
+    note: 駅中心レール面24.3m。出入口側は谷地形で34mとする記述もあり(測定点の違い)。長さ41mのエスカレーターで地上と連絡。 / 聖橋口エスカレーターが長大なことで知られる深い駅
+- id: yushima
+  name: 湯島
+  platforms:
+  - id: main
+    depth_m: 12.4
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 地下2階。
+- id: nezu
+  name: 根津
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 地下1階。
+- id: sendagi
+  name: 千駄木
+  platforms:
+  - id: main
+    depth_m: 9.6
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 地下1階。
+- id: nishi-nippori
+  name: 西日暮里
+  platforms:
+  - id: main
+    depth_m: 9.4
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 地下1階。
+- id: machiya
+  name: 町屋
+  platforms:
+  - id: main
+    depth_m: 10.4
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 地下2階。
+- id: kita-senju
+  name: 北千住
+  platforms:
+  - id: main
+    depth_m: 11.3
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄千代田線 北千住〜代々木公園の地下の深さ - レオナと鉄道
+      url: https://yamanote11-103.hatenablog.com/entry/63836812
+    note: 千代田線ホーム(地下2階)。日比谷線ホームは3階高架(別エントリ)。 / 千代田線ホームは地下
+- id: ayase
+  name: 綾瀬
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅(JR常磐線各駅停車と共用)

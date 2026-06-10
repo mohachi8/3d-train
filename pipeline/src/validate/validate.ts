@@ -19,13 +19,8 @@ import {
   computeInputsHash,
 } from "../lib/context.js";
 import { LocalFrame } from "../lib/proj.js";
-import {
-  assembleChain,
-  resample,
-  projectPoint,
-  findCrossings,
-  type SampledPath,
-} from "../lib/linework.js";
+import { projectPoint, findCrossings, type SampledPath } from "../lib/linework.js";
+import { buildLinePath } from "../lib/assemble.js";
 import {
   IndexArtifactSchema,
   LineArtifactSchema,
@@ -88,16 +83,12 @@ export async function validate(): Promise<Finding[]> {
       continue;
     }
 
-    const trackFeatures = extracted.features.filter((f) => f.properties.kind === "track");
-    const chunks = trackFeatures.map((f) =>
-      (f.geometry.coordinates as [number, number][]).map(([lon, lat]) => frame.toLocal({ lon, lat }))
-    );
-    const ranks = trackFeatures.map((f) =>
-      (f.properties as { role?: string }).role === "sub" ? 2 : 0
-    );
     let path: SampledPath;
+    let stationLocals: Map<string, { x: number; z: number }>;
     try {
-      path = resample(assembleChain(chunks, undefined, ranks).path);
+      const built = buildLinePath(extracted, frame);
+      path = built.path;
+      stationLocals = built.stations;
     } catch (e) {
       err("linework", `${line.id}: ${(e as Error).message}`);
       continue;
@@ -105,10 +96,7 @@ export async function validate(): Promise<Finding[]> {
     paths.set(line.id, path);
 
     // --- 3. カバレッジ: 線形の駅 ⊆ 深度YAML の駅、その逆 ---
-    const stationFeatures = extracted.features.flatMap((f) =>
-      f.properties.kind === "station" ? [{ name: f.properties.name, geometry: f.geometry }] : []
-    );
-    const extNames = new Set(stationFeatures.map((f) => f.name));
+    const extNames = new Set(stationLocals.keys());
     const depthNames = new Set(depthFile.stations.map((s) => s.match_name ?? s.name));
     for (const n of extNames) {
       if (!depthNames.has(n)) err("coverage", `${line.id}: 駅「${n}」の深度エントリがありません`);
@@ -120,14 +108,8 @@ export async function validate(): Promise<Finding[]> {
     // --- 4. スナップ距離と推定値の割合 ---
     let estimated = 0;
     let total = 0;
-    const extStationPos = new Map(
-      stationFeatures.map((f) => {
-        const [lon, lat] = f.geometry.coordinates as [number, number];
-        return [f.name, frame.toLocal({ lon: lon!, lat: lat! })] as const;
-      })
-    );
     for (const st of depthFile.stations) {
-      const pos = extStationPos.get(st.match_name ?? st.name);
+      const pos = stationLocals.get(st.match_name ?? st.name);
       if (!pos) continue;
       const passes = projectPoint(path, pos);
       if (passes.length === 0) {

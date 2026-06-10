@@ -53,11 +53,23 @@ export async function importMt3d(srcArg?: string): Promise<void> {
     }
     // 全 subline を保持する。"sub" には本線の隙間を埋める短い部品と、他路線への
     // 連絡線の両方が混在するため、結合時(assembleChain)に main 優先で判別する。
-    const tracks = railway.sublines.filter((s) => s.coords?.length);
+    const inBbox = (bbox: [number, number, number, number], cs: number[][]) =>
+      cs.every(
+        (c) => c[0]! >= bbox[0] && c[1]! >= bbox[1] && c[0]! <= bbox[2] && c[1]! <= bbox[3]
+      );
+    const tracks = railway.sublines.filter((s) => {
+      if (!s.coords?.length) return false;
+      if (line.clip_bbox && !inBbox(line.clip_bbox, s.coords)) return false;
+      if (line.exclude_bbox && inBbox(line.exclude_bbox, s.coords)) return false;
+      return true;
+    });
 
-    const sts = stations.filter(
-      (s) => s.railway === line.mt3d_id && s.coord && s.title?.ja
-    );
+    const sts = stations.filter((s) => {
+      if (s.railway !== line.mt3d_id || !s.coord || !s.title?.ja) return false;
+      if (line.exclude_stations?.includes(s.title.ja)) return false;
+      if (line.clip_bbox && !inBbox(line.clip_bbox, [s.coord])) return false;
+      return true;
+    });
     // 同名の重複(複数ホームの別エントリ等)は除外
     const seen = new Set<string>();
     const uniqueSts = sts.filter((s) => {

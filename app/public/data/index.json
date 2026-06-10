@@ -40,14 +40,102 @@
    "file": "lines/toei.oedo.json",
    "length_m": 40856.74,
    "station_count": 38
+  },
+  {
+   "id": "tokyo-metro.hibiya",
+   "name": "日比谷線",
+   "color": "#B5B5AC",
+   "file": "lines/tokyo-metro.hibiya.json",
+   "length_m": 20555.1,
+   "station_count": 22
+  },
+  {
+   "id": "tokyo-metro.tozai",
+   "name": "東西線",
+   "color": "#009BBF",
+   "file": "lines/tokyo-metro.tozai.json",
+   "length_m": 31030.45,
+   "station_count": 23
+  },
+  {
+   "id": "tokyo-metro.chiyoda",
+   "name": "千代田線",
+   "color": "#00BB85",
+   "file": "lines/tokyo-metro.chiyoda.json",
+   "length_m": 22466.52,
+   "station_count": 19
+  },
+  {
+   "id": "tokyo-metro.chiyoda-branch",
+   "name": "千代田線(北綾瀬支線)",
+   "color": "#00BB85",
+   "file": "lines/tokyo-metro.chiyoda-branch.json",
+   "length_m": 2367.05,
+   "station_count": 2
+  },
+  {
+   "id": "tokyo-metro.yurakucho",
+   "name": "有楽町線",
+   "color": "#C1A470",
+   "file": "lines/tokyo-metro.yurakucho.json",
+   "length_m": 28583.26,
+   "station_count": 24
+  },
+  {
+   "id": "tokyo-metro.hanzomon",
+   "name": "半蔵門線",
+   "color": "#8F76D6",
+   "file": "lines/tokyo-metro.hanzomon.json",
+   "length_m": 16969.51,
+   "station_count": 14
+  },
+  {
+   "id": "tokyo-metro.namboku",
+   "name": "南北線",
+   "color": "#00AC9B",
+   "file": "lines/tokyo-metro.namboku.json",
+   "length_m": 21372.06,
+   "station_count": 19
+  },
+  {
+   "id": "tokyo-metro.fukutoshin",
+   "name": "副都心線",
+   "color": "#9C5E31",
+   "file": "lines/tokyo-metro.fukutoshin.json",
+   "length_m": 20444.62,
+   "station_count": 16
+  },
+  {
+   "id": "toei.asakusa",
+   "name": "浅草線",
+   "color": "#E85298",
+   "file": "lines/toei.asakusa.json",
+   "length_m": 18848.51,
+   "station_count": 20
+  },
+  {
+   "id": "toei.mita",
+   "name": "三田線",
+   "color": "#0079C2",
+   "file": "lines/toei.mita.json",
+   "length_m": 26532.73,
+   "station_count": 27
+  },
+  {
+   "id": "toei.shinjuku",
+   "name": "新宿線",
+   "color": "#6CBB5A",
+   "file": "lines/toei.shinjuku.json",
+   "length_m": 23737.56,
+   "station_count": 21
   }
  ],
  "stations_file": "stations.json",
  "provenance": {
   "pipeline_version": "0.1.0",
-  "inputs_hash": "f5718b485ab7dfd1",
+  "inputs_hash": "40bc38fcf354c51b",
   "dem_providers": [
-   "terrarium"
+   "gsi"
   ]
  }
 }

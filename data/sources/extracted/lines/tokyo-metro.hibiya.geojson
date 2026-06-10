@@ -1974,20 +1974,6 @@
      35.74981
     ]
    }
-  },
-  {
-   "type": "Feature",
-   "properties": {
-    "kind": "station",
-    "name": "新越谷"
-   },
-   "geometry": {
-    "type": "Point",
-    "coordinates": [
-     139.78981,
-     35.87556
-    ]
-   }
   }
  ]
 }

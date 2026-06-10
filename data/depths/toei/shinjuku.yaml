@@ -1,0 +1,213 @@
+# 新宿線 駅深度データ(東大島〜船堀で荒川を地上橋梁で渡る)
+#
+# 推定値(estimated)は出典が見つかり次第置き換える(docs/data-update-guide.md レシピ1)。
+line_id: toei.shinjuku
+default_platform:
+  length_m: 205
+  width_m: 11
+  height_m: 5
+stations:
+- id: shinjuku
+  name: 新宿
+  platforms:
+  - id: main
+    depth_m: 26.5
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 新線新宿駅 - Wikipedia
+      url: https://ja.wikipedia.org/wiki/%E6%96%B0%E7%B7%9A%E6%96%B0%E5%AE%BF%E9%A7%85
+    note: 地表からホーム階まで26.5m(東京都交通局公表値のWikipedia編纂)。京王新線との共同使用駅、ホームは地下5階 / 地下5階(京王新線と共用)
+- id: shinjuku-sanchome
+  name: 新宿三丁目
+  platforms:
+  - id: main
+    depth_m: 20.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id001
+      title: '推定: 建設年代・工法・周辺駅の階層構造からの概算'
+      method: estimated-from-structure
+- id: akebonobashi
+  name: 曙橋
+  platforms:
+  - id: main
+    depth_m: 18.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: ichigaya
+  name: 市ヶ谷
+  platforms:
+  - id: main
+    depth_m: 24.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 外濠下で有楽町線(浅い)の下を潜る
+- id: kudanshita
+  name: 九段下
+  platforms:
+  - id: main
+    depth_m: 21.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 東西線の下・半蔵門線の上
+- id: jimbocho
+  name: 神保町
+  platforms:
+  - id: main
+    depth_m: 20.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 三田線の下・半蔵門線の上
+- id: ogawamachi
+  name: 小川町
+  platforms:
+  - id: main
+    depth_m: 16.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: iwamotocho
+  name: 岩本町
+  platforms:
+  - id: main
+    depth_m: 19.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 日比谷線秋葉原の下
+- id: bakuro-yokoyama
+  name: 馬喰横山
+  platforms:
+  - id: main
+    depth_m: 18.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 浅草線東日本橋の下
+- id: hamacho
+  name: 浜町
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: morishita
+  name: 森下
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kikukawa
+  name: 菊川
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: sumiyoshi
+  name: 住吉
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: nishi-ojima
+  name: 西大島
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: ojima
+  name: 大島
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: higashi-ojima
+  name: 東大島
+  platforms:
+  - id: main
+    depth_m: -10.1
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄なんでもランキング！ – ちかてつと駅の壁
+      url: https://ekikabe.net/chikatetsu-ranking
+    - title: 東大島駅 - Wikipedia
+      url: https://ja.wikipedia.org/wiki/%E6%9D%B1%E5%A4%A7%E5%B3%B6%E9%A7%85
+    note: 高架駅(ホーム高さ約10.1m=ランキング記載値)。旧中川の真上(都営旧中川橋梁上)に立地し水面からホームまで約12m。海抜ゼロメートル地帯のため駅施設はA.P.+3.5m以上(T.P.換算約+2.4m以上)に設置 / 高架駅。この先で荒川を橋梁で渡る
+- id: funabori
+  name: 船堀
+  platforms:
+  - id: main
+    depth_m: -10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - title: '推定: 高架・地上駅(ホーム高さの標準値)'
+      method: estimated-from-structure
+    note: 高架駅
+- id: ichinoe
+  name: 一之江
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: mizue
+  name: 瑞江
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: shinozaki
+  name: 篠崎
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: motoyawata
+  name: 本八幡
+  platforms:
+  - id: main
+    depth_m: 16.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001

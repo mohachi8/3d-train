@@ -1,0 +1,31 @@
+# 千代田線 北綾瀬支線 駅深度データ(全区間高架)
+#
+# 推定値(estimated)は出典が見つかり次第置き換える(docs/data-update-guide.md レシピ1)。
+line_id: tokyo-metro.chiyoda-branch
+default_platform:
+  length_m: 205
+  width_m: 10
+  height_m: 5
+stations:
+- id: ayase
+  name: 綾瀬
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id001
+      title: '推定: 高架・地上駅(ホーム高さの標準値)'
+      method: estimated-from-structure
+    note: 高架駅(本線と共通)
+- id: kita-ayase
+  name: 北綾瀬
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 高架駅(車両基地に隣接)

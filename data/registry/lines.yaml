@@ -55,36 +55,45 @@ lines:
     mt3d_id: Toei.Oedo
     tunnel_radius_m: 3.8  # リニア地下鉄の小断面シールド
 
-  # ========== Phase 2: 地下鉄13路線(深度データ整備後に enabled: true にする) ==========
+  # ========== Phase 2: 地下鉄13路線 ==========
+  # 地上・高架区間を含む路線も underground: full として扱い、地上区間は
+  # 駅深度の負値(地表より上)で縦断を表現する(坑口の厳密な扱いは Phase 3)。
   - { id: tokyo-metro.hibiya, name: 日比谷線, name_en: Hibiya Line, operator: tokyo-metro,
-      color: "#B5B5AC", phase: 2, enabled: false, underground: full,
-      n02_match: { operator: 東京地下鉄, line: 2号線日比谷線 }, mt3d_id: TokyoMetro.Hibiya }
+      color: "#B5B5AC", phase: 2, enabled: true, underground: full,
+      n02_match: { operator: 東京地下鉄, line: 2号線日比谷線 }, mt3d_id: TokyoMetro.Hibiya,
+      exclude_stations: [新越谷] }   # 東武直通区間
   - { id: tokyo-metro.tozai, name: 東西線, name_en: Tozai Line, operator: tokyo-metro,
-      color: "#009BBF", phase: 2, enabled: false, underground: partial,
+      color: "#009BBF", phase: 2, enabled: true, underground: full,
       n02_match: { operator: 東京地下鉄, line: 5号線東西線 }, mt3d_id: TokyoMetro.Tozai }
   - { id: tokyo-metro.chiyoda, name: 千代田線, name_en: Chiyoda Line, operator: tokyo-metro,
-      color: "#00BB85", phase: 2, enabled: false, underground: partial,
-      n02_match: { operator: 東京地下鉄, line: 9号線千代田線 }, mt3d_id: TokyoMetro.Chiyoda }
+      color: "#00BB85", phase: 2, enabled: true, underground: full,
+      n02_match: { operator: 東京地下鉄, line: 9号線千代田線 }, mt3d_id: TokyoMetro.Chiyoda,
+      exclude_stations: [町田, 成城学園前, 北綾瀬],   # 小田急直通区間 + 北綾瀬は支線側で扱う
+      exclude_bbox: [139.8205, 35.7625, 139.8400, 35.7850] }   # 北綾瀬支線の線形
+  - { id: tokyo-metro.chiyoda-branch, name: 千代田線(北綾瀬支線), name_en: Chiyoda Line Kita-Ayase Branch,
+      operator: tokyo-metro, color: "#00BB85", phase: 2, enabled: true, underground: full,
+      n02_match: { operator: 東京地下鉄, line: 9号線千代田線 }, mt3d_id: TokyoMetro.Chiyoda,
+      clip_bbox: [139.8205, 35.7590, 139.8400, 35.7850] }   # 綾瀬〜北綾瀬のみ切り出し
   - { id: tokyo-metro.yurakucho, name: 有楽町線, name_en: Yurakucho Line, operator: tokyo-metro,
-      color: "#C1A470", phase: 2, enabled: false, underground: full,
+      color: "#C1A470", phase: 2, enabled: true, underground: full,
       n02_match: { operator: 東京地下鉄, line: 8号線有楽町線 }, mt3d_id: TokyoMetro.Yurakucho }
   - { id: tokyo-metro.hanzomon, name: 半蔵門線, name_en: Hanzomon Line, operator: tokyo-metro,
-      color: "#8F76D6", phase: 2, enabled: false, underground: full,
+      color: "#8F76D6", phase: 2, enabled: true, underground: full,
       n02_match: { operator: 東京地下鉄, line: 11号線半蔵門線 }, mt3d_id: TokyoMetro.Hanzomon }
   - { id: tokyo-metro.namboku, name: 南北線, name_en: Namboku Line, operator: tokyo-metro,
-      color: "#00AC9B", phase: 2, enabled: false, underground: full,
+      color: "#00AC9B", phase: 2, enabled: true, underground: full,
       n02_match: { operator: 東京地下鉄, line: 7号線南北線 }, mt3d_id: TokyoMetro.Namboku }
   - { id: tokyo-metro.fukutoshin, name: 副都心線, name_en: Fukutoshin Line, operator: tokyo-metro,
-      color: "#9C5E31", phase: 2, enabled: false, underground: full,
+      color: "#9C5E31", phase: 2, enabled: true, underground: full,
       n02_match: { operator: 東京地下鉄, line: 13号線副都心線 }, mt3d_id: TokyoMetro.Fukutoshin }
   - { id: toei.asakusa, name: 浅草線, name_en: Asakusa Line, operator: toei,
-      color: "#E85298", phase: 2, enabled: false, underground: full,
+      color: "#E85298", phase: 2, enabled: true, underground: full,
       n02_match: { operator: 東京都, line: 1号線浅草線 }, mt3d_id: Toei.Asakusa }
   - { id: toei.mita, name: 三田線, name_en: Mita Line, operator: toei,
-      color: "#0079C2", phase: 2, enabled: false, underground: partial,
+      color: "#0079C2", phase: 2, enabled: true, underground: full,
       n02_match: { operator: 東京都, line: 6号線三田線 }, mt3d_id: Toei.Mita }
   - { id: toei.shinjuku, name: 新宿線, name_en: Shinjuku Line, operator: toei,
-      color: "#6CBB5A", phase: 2, enabled: false, underground: partial,
+      color: "#6CBB5A", phase: 2, enabled: true, underground: full,
       n02_match: { operator: 東京都, line: 10号線新宿線 }, mt3d_id: Toei.Shinjuku }
 
   # ========== Phase 3: JR・私鉄の地下区間 ==========

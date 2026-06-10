@@ -122,8 +122,8 @@ stations:
   - id: otemachi
     name: 大手町
     platforms:
-      - { id: main, depth_m: 9.0, depth_datum: ground, confidence: estimated,
-          sources: [{ title: "推定: 開削工法・地下2階構造から", method: estimated-from-structure }] }
+      - { id: main, depth_m: 8.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 大手町で最も浅い地下2階ホーム(下に東西線・千代田線・三田線・半蔵門線)", method: estimated-from-structure }] }
   - id: awajicho
     name: 淡路町
     platforms:

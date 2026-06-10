@@ -1,0 +1,272 @@
+# 三田線 駅深度データ(志村三丁目以北は高架区間)
+#
+# 推定値(estimated)は出典が見つかり次第置き換える(docs/data-update-guide.md レシピ1)。
+line_id: toei.mita
+default_platform:
+  length_m: 135
+  width_m: 10
+  height_m: 5
+stations:
+- id: meguro
+  name: 目黒
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id001
+      title: '推定: 建設年代・工法・周辺駅の階層構造からの概算'
+      method: estimated-from-structure
+    note: 地下駅(南北線と共用)
+- id: shirokanedai
+  name: 白金台
+  platforms:
+  - id: main
+    depth_m: 27.2
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 白金台駅 - Wikipedia
+      url: https://ja.wikipedia.org/wiki/%E7%99%BD%E9%87%91%E5%8F%B0%E9%A7%85
+    note: 駅中心部で地表からホーム面まで27.2m(レール面まで28.3m)。南北線と共同使用、ホームは地下3階 / 南北線と共用
+- id: shirokane-takanawa
+  name: 白金高輪
+  platforms:
+  - id: main
+    depth_m: 28.7
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 白金高輪駅 - Wikipedia
+      url: https://ja.wikipedia.org/wiki/%E7%99%BD%E9%87%91%E9%AB%98%E8%BC%AA%E9%A7%85
+    note: 駅中心部で地表からホーム面まで28.7m(レール面まで29.8m)。南北線では後楽園(37.5m)に次いで2番目に深い駅とされる / 南北線と共用
+- id: mita
+  name: 三田
+  platforms:
+  - id: main
+    depth_m: 16.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: shibakoen
+  name: 芝公園
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: onarimon
+  name: 御成門
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: uchisaiwaicho
+  name: 内幸町
+  platforms:
+  - id: main
+    depth_m: 17.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 銀座線の下
+- id: hibiya
+  name: 日比谷
+  platforms:
+  - id: main
+    depth_m: 26.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 日比谷駅で最も深い地下6階ホーム。千代田線・有楽町線の下
+- id: otemachi
+  name: 大手町
+  platforms:
+  - id: main
+    depth_m: 22.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 地下4階(千代田線の下・半蔵門線の上)
+- id: jimbocho
+  name: 神保町
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: suidobashi
+  name: 水道橋
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kasuga
+  name: 春日
+  platforms:
+  - id: main
+    depth_m: 13.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: hakusan
+  name: 白山
+  platforms:
+  - id: main
+    depth_m: 15.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: sengoku
+  name: 千石
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: sugamo
+  name: 巣鴨
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: nishi-sugamo
+  name: 西巣鴨
+  platforms:
+  - id: main
+    depth_m: 11.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: shin-itabashi
+  name: 新板橋
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: itabashikuyakushomae
+  name: 板橋区役所前
+  platforms:
+  - id: main
+    depth_m: 11.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: itabashihoncho
+  name: 板橋本町
+  platforms:
+  - id: main
+    depth_m: 11.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: motohasunuma
+  name: 本蓮沼
+  platforms:
+  - id: main
+    depth_m: 10.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: shimura-sakaue
+  name: 志村坂上
+  platforms:
+  - id: main
+    depth_m: 12.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: この先で地上へ
+- id: shimura-sanchome
+  name: 志村三丁目
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id002
+      title: '推定: 高架・地上駅(ホーム高さの標準値)'
+      method: estimated-from-structure
+    note: 高架駅
+- id: hasune
+  name: 蓮根
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅
+- id: nishidai
+  name: 西台
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅
+- id: takashimadaira
+  name: 高島平
+  platforms:
+  - id: main
+    depth_m: -10.1
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 地下鉄なんでもランキング！ – ちかてつと駅の壁
+      url: https://ekikabe.net/chikatetsu-ranking
+    note: 高架駅。ランキング記事に10.1mと記載(東大島と同値)。高架駅のため地表からのホーム高さ約10.1mと解釈し負値で記録 / 高架駅
+- id: shin-takashimadaira
+  name: 新高島平
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅
+- id: nishi-takashimadaira
+  name: 西高島平
+  platforms:
+  - id: main
+    depth_m: -8.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id002
+    note: 高架駅

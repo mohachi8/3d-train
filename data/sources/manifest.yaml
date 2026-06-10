@@ -30,7 +30,7 @@ upstreams:
 
 dem:
   # ⚠️ プロバイダを変更したらキャッシュ(extracted/dem/)を作り直し build:data を再実行。
-  # 現在は terrarium(このリポジトリ初期構築時のネットワーク制約のため)。
-  # ネットワーク制限のない環境で gsi を先頭にしてキャッシュを更新するのが TODO。
-  providers: [terrarium]
+  # gsi(地理院 dem_png, DEM10B相当)を優先。キャッシュは GitHub Actions の
+  # refresh-dem ワークフローで取得済み。terrarium はカバレッジ外のフォールバック。
+  providers: [gsi, terrarium]
   allow_network: true

@@ -64,23 +64,16 @@ export function assembleChain(chunks: Pt[][], tolerance = 50, ranks?: number[]):
 
   const used = new Set<number>();
   const path: Pt[] = [];
-  let cur = start;
-  for (;;) {
-    const c = chunks[cur.chunk]!;
-    const ordered = cur.end === 0 ? c : [...c].reverse();
-    if (path.length === 0) path.push(...ordered);
-    else path.push(...ordered.slice(1));
-    used.add(cur.chunk);
 
-    const tail = path[path.length - 1]!;
+  // 指定点に接続できる未使用チャンクを探す(距離が主、rank はタイブレーク)
+  const findNext = (at: Pt): End | undefined => {
     let next: End | undefined;
     let bestScore = Infinity;
     for (let i = 0; i < chunks.length; i++) {
       if (used.has(i)) continue;
       for (const end of [0, 1] as const) {
-        const d = dist(endpoint({ chunk: i, end }), tail);
+        const d = dist(endpoint({ chunk: i, end }), at);
         if (d > tolerance) continue;
-        // 距離が主、rank はタイブレーク(1m 未満の差なら本線を優先)
         const score = d + rank(i) * 1.0;
         if (score < bestScore) {
           bestScore = score;
@@ -88,8 +81,28 @@ export function assembleChain(chunks: Pt[][], tolerance = 50, ranks?: number[]):
         }
       }
     }
-    if (!next) break;
-    cur = next;
+    return next;
+  };
+
+  // 前方(末尾)への延長
+  let cur: End | undefined = start;
+  while (cur) {
+    const c = chunks[cur.chunk]!;
+    const ordered = cur.end === 0 ? c : [...c].reverse();
+    if (path.length === 0) path.push(...ordered);
+    else path.push(...ordered.slice(1));
+    used.add(cur.chunk);
+    cur = findNext(path[path.length - 1]!);
+  }
+  // 後方(先頭)への延長(開始チャンクの選び方によっては先頭側が残る)
+  for (;;) {
+    const prev = findNext(path[0]!);
+    if (!prev) break;
+    const c = chunks[prev.chunk]!;
+    // prev.end が接続側なので、先頭に「接続側を末尾にした並び」を差し込む
+    const ordered = prev.end === 0 ? [...c].reverse() : c;
+    path.unshift(...ordered.slice(0, -1));
+    used.add(prev.chunk);
   }
 
   const dropped = chunks.map((_, i) => i).filter((i) => !used.has(i));
@@ -138,6 +151,26 @@ export function resample(path: Pt[], step = 20): SampledPath {
     outS.push(target);
   }
   return { points, s: outS };
+}
+
+/**
+ * パスを弧長範囲 [s0, s1] に切り詰め、弧長を 0 起点に振り直す。
+ *
+ * mini-tokyo-3d 等の上流データは他社直通区間まで線形が伸びていることがある。
+ * 「全駅の射影範囲 + マージン」でトリミングすることで、当該路線の区間だけを残す。
+ */
+export function trimPath(sampled: SampledPath, s0: number, s1: number): SampledPath {
+  const points: Pt[] = [];
+  const s: number[] = [];
+  for (let i = 0; i < sampled.s.length; i++) {
+    const v = sampled.s[i]!;
+    if (v >= s0 && v <= s1) {
+      points.push(sampled.points[i]!);
+      s.push(v - s0);
+    }
+  }
+  if (points.length < 2) throw new Error("trimPath: トリミング後の線形が短すぎます");
+  return { points, s };
 }
 
 export interface PassOnLine {

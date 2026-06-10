@@ -1,0 +1,151 @@
+# 半蔵門線 駅深度データ(1978-2003年開業、比較的深い)
+#
+# 推定値(estimated)は出典が見つかり次第置き換える(docs/data-update-guide.md レシピ1)。
+line_id: tokyo-metro.hanzomon
+default_platform:
+  length_m: 205
+  width_m: 11
+  height_m: 5
+stations:
+- id: shibuya
+  name: 渋谷
+  platforms:
+  - id: main
+    depth_m: 14.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - &id001
+      title: '推定: 建設年代・工法・周辺駅の階層構造からの概算'
+      method: estimated-from-structure
+    note: 地下3階(田園都市線と共用)
+- id: omote-sando
+  name: 表参道
+  platforms:
+  - id: main
+    depth_m: 11.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 銀座線と同一ホーム
+- id: aoyama-itchome
+  name: 青山一丁目
+  platforms:
+  - id: main
+    depth_m: 17.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: nagatacho
+  name: 永田町
+  platforms:
+  - id: main
+    depth_m: 36.0
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 東京のモグラ駅、深さランキング TOP10 | ニッポン旅マガジン(6位 半蔵門線永田町 36m)
+      url: https://tabi-mag.jp/underground-stationtk/
+    - title: 東京のモグラ駅、深さランキング TOP10 | 東京とりっぷ
+      url: https://tokyo-trip.org/newstopics/underground-stationtk/
+    note: 半蔵門線で最深。長さ40mのエスカレーター(メトロ2位)。地下5〜6階相当。 / 地下3階(南北線はさらに下)
+- id: hanzomon
+  name: 半蔵門
+  platforms:
+  - id: main
+    depth_m: 18.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kudanshita
+  name: 九段下
+  platforms:
+  - id: main
+    depth_m: 23.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 東西線・新宿線の下
+- id: jimbocho
+  name: 神保町
+  platforms:
+  - id: main
+    depth_m: 26.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 三田線・新宿線の下の最下層
+- id: otemachi
+  name: 大手町
+  platforms:
+  - id: main
+    depth_m: 27.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+    note: 大手町で最も深い地下5階ホーム
+- id: mitsukoshimae
+  name: 三越前
+  platforms:
+  - id: main
+    depth_m: 18.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: suitengumae
+  name: 水天宮前
+  platforms:
+  - id: main
+    depth_m: 18.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: kiyosumi-shirakawa
+  name: 清澄白河
+  platforms:
+  - id: main
+    depth_m: 17.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: sumiyoshi
+  name: 住吉
+  platforms:
+  - id: main
+    depth_m: 32.6
+    depth_datum: ground
+    confidence: secondary
+    sources:
+    - title: 住吉駅 (東京都) - Wikipedia(A線ホーム32.6m/B線25.3m、A線ホーム面標高-31.0m)
+      url: https://ja.wikipedia.org/wiki/住吉駅_(東京都)
+    - title: 地下鉄なんでもランキング！ – ちかてつと駅の壁(住吉2番線ホームは標高約-33mで東京の地下鉄最低)
+      url: https://ekikabe.net/chikatetsu-ranking
+    note: '上下2層構造。A線(押上方面・2番線)32.6m/B線(渋谷方面・1番線)25.3m。A線ホーム面標高は-31.0m(東京の地下鉄で最も低い。-33mとする編纂値もあり: 東洋経済 https://toyokeizai.net/articles/-/185149)。
+      / 大江戸線関連の深い構造'
+- id: kinshicho
+  name: 錦糸町
+  platforms:
+  - id: main
+    depth_m: 20.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
+- id: oshiage
+  name: 押上〈スカイツリー前〉
+  platforms:
+  - id: main
+    depth_m: 18.0
+    depth_datum: ground
+    confidence: estimated
+    sources:
+    - *id001
