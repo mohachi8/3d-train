@@ -1,0 +1,24 @@
+# 路線交差の上下関係の明示制約。
+# 検証(crossing-check)が自動検出した交差点とこの制約を突き合わせ、
+# 上下が逆なら error、離隔不足なら warn を出す。
+crossings:
+  - lines: [tokyo-metro.ginza, toei.oedo]
+    near: { lonlat: [139.7240, 35.6729], radius_m: 300 }
+    order: [tokyo-metro.ginza, toei.oedo]   # 青山一丁目: 銀座線(7.7m)が上、大江戸線(約28m)が下
+    min_separation_m: 6.5
+    note: 青山一丁目駅交差部
+  - lines: [tokyo-metro.ginza, toei.oedo]
+    near: { lonlat: [139.7731, 35.7078], radius_m: 300 }
+    order: [tokyo-metro.ginza, toei.oedo]   # 上野広小路/上野御徒町: 銀座線(約8m)が上
+    min_separation_m: 6.5
+    note: 上野広小路駅交差部
+  - lines: [tokyo-metro.marunouchi, toei.oedo]
+    near: { lonlat: [139.7603, 35.7071], radius_m: 300 }
+    order: [tokyo-metro.marunouchi, toei.oedo]  # 本郷三丁目: 丸ノ内線(約6m)が上
+    min_separation_m: 6.5
+    note: 本郷三丁目駅交差部
+  - lines: [tokyo-metro.marunouchi, toei.oedo]
+    near: { lonlat: [139.6822, 35.6971], radius_m: 400 }
+    order: [tokyo-metro.marunouchi, toei.oedo]  # 中野坂上: 丸ノ内線(約9m)が上、大江戸線(33.4m)が下
+    min_separation_m: 6.5
+    note: 中野坂上駅交差部

@@ -1,0 +1,36 @@
+# 上流データソースの台帳。出典表記(アプリの attribution)とも対応させること。
+upstreams:
+  - id: n02
+    name: 国土数値情報 鉄道データ (N02)
+    url: https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N02-2023.html
+    license: 国土数値情報ダウンロードサイト利用約款(出典明記で利用可)
+    role: 路線平面線形・駅位置の正規ソース(fetch + extract-n02 で取得)
+    note: 配布サイトへ到達できないネットワーク環境では mini-tokyo-3d ブートストラップを使用
+  - id: mini-tokyo-3d
+    name: mini-tokyo-3d (Akihiko Kusanagi)
+    url: https://github.com/nagix/mini-tokyo-3d
+    license: MIT
+    role: 路線平面線形・駅位置のブートストラップソース(import-mt3d)
+  - id: gsi-dem
+    name: 国土地理院 標高タイル (dem_png)
+    url: https://maps.gsi.go.jp/development/ichiran.html#dem
+    license: 国土地理院コンテンツ利用規約(出典明記)
+    role: 地表標高の正規ソース(depth→T.P. 変換・深度表示)
+  - id: terrarium
+    name: AWS Open Data Terrain Tiles (Terrarium)
+    url: https://registry.opendata.aws/terrain-tiles/
+    license: パブリックドメイン相当(出典表記推奨)
+    role: 地表標高のフォールバック(地理院タイルへ到達できない環境)
+    note: SRTM由来のため市街地では数mの誤差がありうる。可能なら gsi に置換する
+  - id: gsi-pale
+    name: 地理院タイル(淡色地図)
+    url: https://maps.gsi.go.jp/development/ichiran.html#pale
+    license: 国土地理院コンテンツ利用規約(出典明記)
+    role: アプリの地表面テクスチャ(ブラウザから直接ロード)
+
+dem:
+  # ⚠️ プロバイダを変更したらキャッシュ(extracted/dem/)を作り直し build:data を再実行。
+  # 現在は terrarium(このリポジトリ初期構築時のネットワーク制約のため)。
+  # ネットワーク制限のない環境で gsi を先頭にしてキャッシュを更新するのが TODO。
+  providers: [terrarium]
+  allow_network: true

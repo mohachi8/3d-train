@@ -1,0 +1,41 @@
+# 地理院 DEM タイルキャッシュの取得・更新。
+#
+# 開発サンドボックスからは地理院タイルサーバへ到達できないため、ネットワーク制限の
+# ない GitHub Actions ランナーでタイルを取得し、ブランチへコミットする。
+# 取得後はそのブランチで `data/sources/manifest.yaml` の providers を [gsi, terrarium]
+# にし、`npm run build:data` を再実行してアーティファクトを更新すること。
+name: refresh-dem
+on:
+  workflow_dispatch:
+    inputs:
+      provider:
+        description: "DEM provider"
+        default: gsi
+        type: choice
+        options: [gsi, terrarium]
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run cli -w pipeline -- fetch-dem --provider ${{ inputs.provider }}
+      - name: Commit tiles
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/sources/extracted/dem/
+          if git diff --cached --quiet; then
+            echo "変更なし"
+          else
+            git commit -m "data: ${{ inputs.provider }} DEMタイルキャッシュを更新"
+            git push
+          fi

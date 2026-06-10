@@ -1,0 +1,277 @@
+# 大江戸線 駅深度データ
+#
+# 深い駅(六本木・東中野・新宿など)は報道・編纂資料の値 (secondary/official)。
+# それ以外はシールド工法の標準的な土被りと隣接駅の値からの内挿推定 (estimated)。
+# 駅順は 光が丘 →(放射部)→ 都庁前 →(環状部・反時計回り)→ 都庁前。
+#
+# TODO(Phase 2): 飯田橋〜春日間のトンネル最深部(地下49m, ekikabe.net 編纂)を
+# profile-hints.yaml の制御点として追加検討。現状は駅間を PCHIP 補間のみ。
+line_id: toei.oedo
+default_platform:
+  length_m: 135   # 8両×16.5m級
+  width_m: 9
+  height_m: 4.5
+stations:
+  # ===== 放射部(光が丘 → 都庁前) =====
+  - id: hikarigaoka
+    name: 光が丘
+    platforms:
+      - id: main
+        depth_m: 11.9
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "光が丘駅 - Wikipedia(大江戸線で最も浅い駅)"
+            url: "https://ja.wikipedia.org/wiki/%E5%85%89%E3%81%8C%E4%B8%98%E9%A7%85"
+  - id: nerima-kasugacho
+    name: 練馬春日町
+    platforms:
+      - { id: main, depth_m: 14.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 隣接駅(光が丘11.9m・豊島園)からの内挿", method: interpolated }] }
+  - id: toshimaen
+    name: 豊島園
+    platforms:
+      - { id: main, depth_m: 16.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 放射部の浅いシールド区間として内挿", method: interpolated }] }
+  - id: nerima
+    name: 練馬
+    platforms:
+      - { id: main, depth_m: 18.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 放射部の浅いシールド区間として内挿", method: interpolated }] }
+  - id: shin-egota
+    name: 新江古田
+    platforms:
+      - { id: main, depth_m: 25.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 隣接の中井(35.1m)へ向け深くなる区間として内挿", method: interpolated }] }
+  - id: ochiai-minami-nagasaki
+    name: 落合南長崎
+    platforms:
+      - { id: main, depth_m: 28.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 隣接の中井(35.1m)へ向け深くなる区間として内挿", method: interpolated }] }
+  - id: nakai
+    name: 中井
+    platforms:
+      - id: main
+        depth_m: 35.1
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "東京のモグラ駅、深さランキング TOP10(ニッポン旅マガジン)— 8位"
+            url: "https://tabi-mag.jp/underground-stationtk/"
+        note: 首都高山手トンネルと一体施工
+  - id: higashi-nakano
+    name: 東中野
+    platforms:
+      - id: main
+        depth_m: 38.8
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "E31 都営大江戸線 東中野駅(ちかてつと駅の壁)"
+            url: "https://ekikabe.net/e31"
+          - title: "東京のモグラ駅、深さランキング TOP10(東京とりっぷ)— 2位"
+            url: "https://tokyo-trip.org/newstopics/underground-stationtk/"
+        note: 山手トンネル直下。東京の地下鉄で2番目に深いホーム
+  - id: nakano-sakaue
+    name: 中野坂上
+    platforms:
+      - id: main
+        depth_m: 33.4
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "東京のモグラ駅、深さランキング TOP10(東京とりっぷ)— 10位"
+            url: "https://tokyo-trip.org/newstopics/underground-stationtk/"
+        note: 丸ノ内線(深さ約9m)の直下を通過
+  - id: nishi-shinjuku-gochome
+    name: 西新宿五丁目
+    platforms:
+      - { id: main, depth_m: 25.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 中野坂上(33.4m)と都庁前(約22m)の内挿", method: interpolated }] }
+  - id: tochomae
+    name: 都庁前
+    platforms:
+      - id: main
+        depth_m: 21.8
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "都庁前駅 - Wikipedia"
+            url: "https://ja.wikipedia.org/wiki/%E9%83%BD%E5%BA%81%E5%89%8D%E9%A7%85"
+        note: 21.8mはWikipedia記載の「平均掘削深さ」(開削・地下3層)でありホーム面深さの公表値ではない点に注意
+  # ===== 環状部(都庁前 → 反時計回り → 新宿西口) =====
+  - id: shinjuku
+    name: 新宿
+    platforms:
+      - id: main
+        depth_m: 36.6
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "東京のモグラ駅、深さランキング TOP10(ニッポン旅マガジン)— 5位"
+            url: "https://tabi-mag.jp/underground-stationtk/"
+  - id: yoyogi
+    name: 代々木
+    platforms:
+      - { id: main, depth_m: 27.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 新宿(36.6m)から国立競技場へ向かう区間の内挿", method: interpolated }] }
+  - id: kokuritsu-kyogijo
+    name: 国立競技場
+    platforms:
+      - { id: main, depth_m: 30.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: シールド区間の標準的な土被りから", method: estimated-from-structure }] }
+  - id: aoyama-itchome
+    name: 青山一丁目
+    platforms:
+      - id: main
+        depth_m: 28.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "推定: 銀座線(7.7m)・半蔵門線の下を通るシールド区間として"
+            method: estimated-from-structure
+  - id: roppongi
+    name: 六本木
+    platforms:
+      - id: platform-1
+        depth_m: 42.3
+        depth_datum: ground
+        confidence: official
+        sources:
+          - title: "色とシークエンスについて 都営大江戸線「六本木」駅(東京都交通局 PROJECT TOEI)"
+            url: "https://www.kotsu.metro.tokyo.jp/project-toei/column/architecture/180409_085946.html"
+          - title: "「最も深い」地下鉄の駅 東京は六本木、では大阪は…?(乗りものニュース)"
+            url: "https://trafficnews.jp/post/131168"
+        note: 1番線(大門・両国方面)。日本一深い地下鉄ホーム
+      - id: platform-2
+        depth_m: 32.8
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "日本一深い? 大江戸線【六本木駅】を徹底検証(THE GATE)— 2番線は地下32.8m"
+            url: "https://thegate12.com/jp/article/337"
+        note: 2番線(新宿方面)。上下2層構造
+  - id: azabu-juban
+    name: 麻布十番
+    platforms:
+      - id: main
+        depth_m: 32.0
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "麻布十番駅 南北線⇔大江戸線の乗換方法(東京フォト鉄道)"
+            url: "https://tren.hatenablog.com/entry/n04-e22"
+        note: 概数。海抜ではホームT.P.約-27mで、地表深さ日本一の六本木より海抜では低い
+  - id: akabanebashi
+    name: 赤羽橋
+    platforms:
+      - { id: main, depth_m: 26.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 麻布十番(32m)と大門の内挿", method: interpolated }] }
+  - id: daimon
+    name: 大門
+    platforms:
+      - { id: main, depth_m: 23.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 浅草線(浅い)の下を通る低地区間として", method: estimated-from-structure }] }
+  - id: shiodome
+    name: 汐留
+    platforms:
+      - { id: main, depth_m: 22.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 低地の埋立地区間のシールド土被りから", method: estimated-from-structure }] }
+  - id: tsukijishijo
+    name: 築地市場
+    platforms:
+      - { id: main, depth_m: 25.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 低地区間のシールド土被りから", method: estimated-from-structure }] }
+  - id: kachidoki
+    name: 勝どき
+    platforms:
+      - { id: main, depth_m: 22.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 隅田川河口部を渡った後の埋立地区間として", method: estimated-from-structure }] }
+  - id: tsukishima
+    name: 月島
+    platforms:
+      - { id: main, depth_m: 24.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 有楽町線(浅い)の下を通る区間として", method: estimated-from-structure }] }
+  - id: monzen-nakacho
+    name: 門前仲町
+    platforms:
+      - { id: main, depth_m: 26.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 東西線の下を通る区間として", method: estimated-from-structure }] }
+  - id: kiyosumi-shirakawa
+    name: 清澄白河
+    platforms:
+      - { id: main, depth_m: 30.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 半蔵門線の下を通る区間として", method: estimated-from-structure }] }
+  - id: morishita
+    name: 森下
+    platforms:
+      - { id: main, depth_m: 28.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 新宿線の下を通る区間として", method: estimated-from-structure }] }
+  - id: ryogoku
+    name: 両国
+    platforms:
+      - { id: main, depth_m: 25.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 低地区間のシールド土被りから", method: estimated-from-structure }] }
+  - id: kuramae
+    name: 蔵前
+    platforms:
+      - { id: main, depth_m: 21.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 隅田川を渡った後の低地区間として", method: estimated-from-structure }] }
+  - id: shin-okachimachi
+    name: 新御徒町
+    platforms:
+      - { id: main, depth_m: 23.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 低地区間のシールド土被りから", method: estimated-from-structure }] }
+  - id: ueno-okachimachi
+    name: 上野御徒町
+    platforms:
+      - { id: main, depth_m: 24.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 銀座線(約8m)の下を通る区間として", method: estimated-from-structure }] }
+  - id: hongo-sanchome
+    name: 本郷三丁目
+    platforms:
+      - { id: main, depth_m: 24.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 丸ノ内線(約6m)の下を通る本郷台地区間として", method: estimated-from-structure }] }
+  - id: kasuga
+    name: 春日
+    platforms:
+      - { id: main, depth_m: 27.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 三田線・南北線の下を通る区間として", method: estimated-from-structure }] }
+  - id: iidabashi
+    name: 飯田橋
+    platforms:
+      - id: main
+        depth_m: 32.0
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "災害時に期待の大江戸線(デンカク)— 地下約32m・地下6階"
+            url: "https://www.denkaku.com/blog/2024/1409/"
+          - title: "地下鉄なんでもランキング!(ちかてつと駅の壁)"
+            url: "https://ekikabe.net/chikatetsu-ranking"
+        note: 有楽町線・南北線・東西線と神田川の下を通る。春日方のトンネル最深部は地下49m(日本最深の地下鉄トンネル)
+  - id: ushigome-kagurazaka
+    name: 牛込神楽坂
+    platforms:
+      - { id: main, depth_m: 28.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 飯田橋(32m)から台地区間への内挿", method: interpolated }] }
+  - id: ushigome-yanagicho
+    name: 牛込柳町
+    platforms:
+      - { id: main, depth_m: 22.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 台地区間のシールド土被りから", method: estimated-from-structure }] }
+  - id: wakamatsu-kawada
+    name: 若松河田
+    platforms:
+      - { id: main, depth_m: 25.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 台地区間のシールド土被りから", method: estimated-from-structure }] }
+  - id: higashi-shinjuku
+    name: 東新宿
+    platforms:
+      - { id: main, depth_m: 26.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 副都心線交差部の区間として", method: estimated-from-structure }] }
+  - id: shinjuku-nishiguchi
+    name: 新宿西口
+    platforms:
+      - { id: main, depth_m: 24.5, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 都庁前(約22m)と東新宿(約26m)の間の内挿", method: interpolated }] }

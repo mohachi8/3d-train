@@ -1,0 +1,141 @@
+# 銀座線 駅深度データ
+#
+# 主な出典: 「地下鉄銀座線 駅の深さ」(レオナと鉄道, ameblo) の編纂値。
+# 検索スニペット経由で取得しており原典全文での再確認は未了(→ confidence: secondary)。
+# 銀座線の平均深度約9m(東洋経済 2017)と整合することを確認済み。
+line_id: tokyo-metro.ginza
+default_platform:
+  length_m: 105   # 6両×16m級
+  width_m: 11
+  height_m: 5
+stations:
+  - id: shibuya
+    name: 渋谷
+    platforms:
+      - id: main
+        depth_m: -13.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "推定: ホームは渋谷スクランブルスクエア脇の地上3階(高さ約13mと仮定)"
+            method: estimated-from-structure
+          - title: "なぜ地下鉄なのに、地上3階? 銀座線、丸ノ内線が地上に出てしまう理由(楽待)"
+            url: "https://www.rakumachi.jp/news/column/139800"
+          - title: "渋谷駅の顔だった「地下鉄が地上3階から発車するビル」(乗りものニュース)"
+            url: "https://trafficnews.jp/post/122047"
+        note: 渋谷は谷底のため、台地区間を走ってきたトンネルがそのまま地上3階の高さになる
+  - id: omote-sando
+    name: 表参道
+    platforms:
+      - { id: main, depth_m: 8.9, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: gaiemmae
+    name: 外苑前
+    platforms:
+      - { id: main, depth_m: 9.5, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: aoyama-itchome
+    name: 青山一丁目
+    platforms:
+      - { id: main, depth_m: 7.7, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: akasaka-mitsuke
+    name: 赤坂見附
+    platforms:
+      - id: upper
+        depth_m: 6.7
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - { title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }
+        note: 上層(渋谷方面)。丸ノ内線と同一ホームで方向別2層
+      - id: lower
+        depth_m: 11.7
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "推定: 上層6.7mに標準的な階層間隔5mを加算(浅草方面ホーム)"
+            method: estimated-from-structure
+  - id: tameike-sanno
+    name: 溜池山王
+    platforms:
+      - { id: main, depth_m: 9.4, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: toranomon
+    name: 虎ノ門
+    platforms:
+      - { id: main, depth_m: 8.5, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: shimbashi
+    name: 新橋
+    platforms:
+      - { id: main, depth_m: 10.0, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: ginza
+    name: 銀座
+    platforms:
+      - id: main
+        tp_m: -5.0
+        depth_datum: tp
+        confidence: secondary
+        sources:
+          - { title: "先入観と全く違う｢東京の地下鉄｣本当の深さ(東洋経済オンライン)— 銀座付近で標高約-5m", url: "https://toyokeizai.net/articles/-/185149" }
+          - { title: "地下鉄銀座線 駅の深さ(レオナと鉄道)— 地表から9.3m", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }
+        note: 海抜の編纂値を直接使用(地表標高約4m+深さ9.3mとも整合)。DEM誤差の影響を受けない
+  - id: kyobashi
+    name: 京橋
+    platforms:
+      - { id: main, depth_m: 10.3, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: nihombashi
+    name: 日本橋
+    platforms:
+      - { id: main, depth_m: 10.5, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: mitsukoshimae
+    name: 三越前
+    platforms:
+      - { id: main, depth_m: 9.8, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: kanda
+    name: 神田
+    platforms:
+      - { id: main, depth_m: 8.0, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: suehirocho
+    name: 末広町
+    platforms:
+      - { id: main, depth_m: 7.4, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: ueno-hirokoji
+    name: 上野広小路
+    platforms:
+      - { id: main, depth_m: 8.0, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }],
+          note: 約8mの概数 }
+  - id: ueno
+    name: 上野
+    platforms:
+      - { id: main, depth_m: 10.1, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: inaricho
+    name: 稲荷町
+    platforms:
+      - { id: main, depth_m: 6.8, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: tawaramachi
+    name: 田原町
+    platforms:
+      - { id: main, depth_m: 7.7, depth_datum: ground, confidence: secondary,
+          sources: [{ title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }] }
+  - id: asakusa
+    name: 浅草
+    platforms:
+      - id: main
+        depth_m: 8.8
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - { title: "地下鉄銀座線 駅の深さ(レオナと鉄道)", url: "https://ameblo.jp/elsascarlet19/entry-12525544598.html" }
+          - { title: "先入観と全く違う｢東京の地下鉄｣本当の深さ(東洋経済オンライン)", url: "https://toyokeizai.net/articles/-/185149?page=2" }
+        note: 1927年開業・日本最初の地下鉄駅。低地のためホーム海抜はマイナス

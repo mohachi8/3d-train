@@ -1,0 +1,14 @@
+operators:
+  - id: tokyo-metro
+    name: 東京メトロ
+    name_en: Tokyo Metro
+  - id: toei
+    name: 都営地下鉄(東京都交通局)
+    name_en: Toei Subway
+  # --- フェーズ3(JR・私鉄の地下区間)で使用 ---
+  - id: jr-east
+    name: JR東日本
+    name_en: JR East
+  - id: twr
+    name: 東京臨海高速鉄道
+    name_en: Tokyo Waterfront Area Rapid Transit

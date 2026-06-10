@@ -1,0 +1,53 @@
+{
+ "schema_version": 1,
+ "generated_by": "pipeline (手編集禁止: data/ を編集して npm run build:data)",
+ "anchor": {
+  "lonlat": [
+   139.7671,
+   35.6812
+  ],
+  "epsg": 6677
+ },
+ "lines": [
+  {
+   "id": "tokyo-metro.ginza",
+   "name": "銀座線",
+   "color": "#FF9500",
+   "file": "lines/tokyo-metro.ginza.json",
+   "length_m": 14212.57,
+   "station_count": 19
+  },
+  {
+   "id": "tokyo-metro.marunouchi",
+   "name": "丸ノ内線",
+   "color": "#F62E36",
+   "file": "lines/tokyo-metro.marunouchi.json",
+   "length_m": 24406.61,
+   "station_count": 25
+  },
+  {
+   "id": "tokyo-metro.marunouchi-branch",
+   "name": "丸ノ内線(方南町支線)",
+   "color": "#F62E36",
+   "file": "lines/tokyo-metro.marunouchi-branch.json",
+   "length_m": 3354.12,
+   "station_count": 4
+  },
+  {
+   "id": "toei.oedo",
+   "name": "大江戸線",
+   "color": "#B6007A",
+   "file": "lines/toei.oedo.json",
+   "length_m": 40856.74,
+   "station_count": 38
+  }
+ ],
+ "stations_file": "stations.json",
+ "provenance": {
+  "pipeline_version": "0.1.0",
+  "inputs_hash": "f5718b485ab7dfd1",
+  "dem_providers": [
+   "terrarium"
+  ]
+ }
+}
