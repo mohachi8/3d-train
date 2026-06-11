@@ -160,3 +160,19 @@ crossings:
     order: [tokyo-metro.tozai, tokyo-metro.fukutoshin]
     min_separation_m: 4
     note: 高田馬場〜西早稲田。副都心線(2008年)が東西線の下を潜る
+
+  # ===== JR地下区間(Phase 3) =====
+  - lines: [jr-east.sobu-rapid, jr-east.yokosuka]
+    near: { lonlat: [139.7660, 35.6826], radius_m: 600 }
+    min_separation_m: 0.1
+    note: 東京駅で同一の総武・東京トンネルが分岐する続き区間。上下関係なし
+  - lines: [tokyo-metro.yurakucho, jr-east.yokosuka]
+    near: { lonlat: [139.7627, 35.6759], radius_m: 400 }
+    order: [tokyo-metro.yurakucho, jr-east.yokosuka]
+    min_separation_m: 4
+    note: 有楽町。先行の東京トンネル(1972年)が深く、有楽町線(1974年)が上
+  - lines: [tokyo-metro.hanzomon, jr-east.sobu-rapid]
+    near: { lonlat: [139.7684, 35.6864], radius_m: 400 }
+    order: [tokyo-metro.hanzomon, jr-east.sobu-rapid]
+    min_separation_m: 3
+    note: 三越前〜新日本橋。総武トンネル(1972年)の上を半蔵門線(1989年)が交差

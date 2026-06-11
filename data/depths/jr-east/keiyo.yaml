@@ -1,0 +1,56 @@
+# 京葉線(地下区間)駅深度データ — 東京〜新木場
+#
+# 京葉線の東京駅地下ホームは在来線ホームの約400m南(有楽町寄り)に位置する。
+# lonlat でホーム実位置を指定している。
+line_id: jr-east.keiyo
+default_platform:
+  length_m: 205   # 10両
+  width_m: 10
+  height_m: 5
+stations:
+  - id: tokyo
+    name: 東京
+    lonlat: [139.7642, 35.6782]   # 京葉地下ホーム実位置(鍛冶橋通り付近)
+    platforms:
+      - id: main
+        tp_m: -29.2
+        depth_datum: tp
+        confidence: secondary
+        sources:
+          - title: "京葉線 - Wikipedia — 東京駅京葉ホームは深さ33.4m・鍛冶橋通り直下"
+            url: "https://ja.wikipedia.org/wiki/%E4%BA%AC%E8%91%89%E7%B7%9A"
+          - title: "東京駅(概説・その2)- 京葉線新東京トンネル(21)(mirai-report)— レール面海抜-29.19m・地表下31m"
+            url: "https://mirai-report.com/blog-entry-133.html"
+        note: JR最低標高の駅(海抜-29.19m)。深さは出典により33.4m/31mの差異あり。成田新幹線用空間を転用
+  - id: hatchobori
+    name: 八丁堀
+    platforms:
+      - id: main
+        depth_m: 20.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "推定: 京葉線ホームは地下3階で日比谷線(地下2階)より深い(八丁堀駅(概説)mirai-report)"
+            url: "https://mirai-report.com/blog-entry-119.html"
+            method: estimated-from-structure
+  - id: etchujima
+    name: 越中島
+    platforms:
+      - id: main
+        depth_m: 16.4
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "越中島駅(概説)- 京葉線新東京トンネル(8)(mirai-report)— 地表面からの深さ16.39m・2層構造"
+            url: "https://mirai-report.com/blog-entry-107.html"
+        note: 八丁堀方は隅田川河底を通過する
+  - id: shiomi
+    name: 潮見
+    platforms:
+      - { id: main, depth_m: -8.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 高架駅(越中島方の坑口から上がる)", method: estimated-from-structure }] }
+  - id: shin-kiba
+    name: 新木場
+    platforms:
+      - { id: main, depth_m: -8.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 高架駅", method: estimated-from-structure }] }

@@ -86,7 +86,12 @@ export async function validate(): Promise<Finding[]> {
     let path: SampledPath;
     let stationLocals: Map<string, { x: number; z: number }>;
     try {
-      const built = buildLinePath(extracted, frame);
+      const overrides = new Map(
+        depthFile.stations
+          .filter((st) => st.lonlat)
+          .map((st) => [st.match_name ?? st.name, frame.toLocal({ lon: st.lonlat![0], lat: st.lonlat![1] })] as const)
+      );
+      const built = buildLinePath(extracted, frame, overrides);
       path = built.path;
       stationLocals = built.stations;
     } catch (e) {
@@ -109,7 +114,9 @@ export async function validate(): Promise<Finding[]> {
     let estimated = 0;
     let total = 0;
     for (const st of depthFile.stations) {
-      const pos = stationLocals.get(st.match_name ?? st.name);
+      const pos = st.lonlat
+        ? frame.toLocal({ lon: st.lonlat[0], lat: st.lonlat[1] })
+        : stationLocals.get(st.match_name ?? st.name);
       if (!pos) continue;
       const passes = projectPoint(path, pos);
       if (passes.length === 0) {
@@ -216,13 +223,21 @@ export async function validate(): Promise<Finding[]> {
               (k.lines[0] === b.line_id && k.lines[1] === a.line_id)) &&
             distLL(k.near.lonlat, [ll.lon, ll.lat]) < k.near.radius_m
         );
-        if (constraint) {
-          const upper = constraint.order[0] === a.line_id ? ya : yb;
-          const lower = constraint.order[0] === a.line_id ? yb : ya;
+        if (constraint && !constraint.order) {
+          // 上下関係なし(同一トンネルの分岐・並走など): 離隔チェックのみ
+          if (sep < constraint.min_separation_m) {
+            warn(
+              "crossing",
+              `${a.line_id} × ${b.line_id} @ ${where}: 離隔 ${sep.toFixed(1)}m < 制約 ${constraint.min_separation_m}m`
+            );
+          }
+        } else if (constraint) {
+          const upper = constraint.order![0] === a.line_id ? ya : yb;
+          const lower = constraint.order![0] === a.line_id ? yb : ya;
           if (upper <= lower) {
             err(
               "crossing",
-              `${a.line_id} × ${b.line_id} @ ${where}: 上下関係が制約と逆です(${constraint.order[0]} が上のはず)`
+              `${a.line_id} × ${b.line_id} @ ${where}: 上下関係が制約と逆です(${constraint.order![0]} が上のはず)`
             );
           } else if (upper - lower < constraint.min_separation_m) {
             warn(

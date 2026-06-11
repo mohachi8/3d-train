@@ -107,6 +107,10 @@ export const StationDepthSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string().describe("駅名(抽出済み線形データの駅名と一致させる)"),
   match_name: z.string().optional().describe("線形データ側の駅名が異なる場合のマッチ用"),
+  lonlat: LonLatTuple.optional().describe(
+    "ホーム位置の上書き。線形データの駅点がホーム実位置から離れている場合に使う" +
+      "(例: 京葉線東京駅の地下ホームは在来線ホームの約400m南)"
+  ),
   platforms: z.array(PlatformSchema).min(1),
 });
 
@@ -144,7 +148,8 @@ export const CrossingsSchema = z.object({
         near: z.object({ lonlat: LonLatTuple, radius_m: z.number().positive() }),
         order: z
           .tuple([z.string(), z.string()])
-          .describe("[上を通る路線, 下を通る路線]"),
+          .optional()
+          .describe("[上を通る路線, 下を通る路線]。同一トンネルの分岐など上下関係がない場合は省略"),
         min_separation_m: z.number().positive().default(6.5),
         sources: z.array(SourceRef).optional(),
         note: z.string().optional(),

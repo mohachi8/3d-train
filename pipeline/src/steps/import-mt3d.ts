@@ -51,23 +51,42 @@ export async function importMt3d(srcArg?: string): Promise<void> {
       console.warn(`[skip] ${line.id}: mt3d_id=${line.mt3d_id} が coordinates.json にありません`);
       continue;
     }
-    // 全 subline を保持する。"sub" には本線の隙間を埋める短い部品と、他路線への
-    // 連絡線の両方が混在するため、結合時(assembleChain)に main 優先で判別する。
-    const inBbox = (bbox: [number, number, number, number], cs: number[][]) =>
-      cs.every(
-        (c) => c[0]! >= bbox[0] && c[1]! >= bbox[1] && c[0]! <= bbox[2] && c[1]! <= bbox[3]
-      );
-    const tracks = railway.sublines.filter((s) => {
-      if (!s.coords?.length) return false;
-      if (line.clip_bbox && !inBbox(line.clip_bbox, s.coords)) return false;
-      if (line.exclude_bbox && inBbox(line.exclude_bbox, s.coords)) return false;
-      return true;
-    });
+    // クリップ規則:
+    //  - clip_bbox:    チャンクを bbox 境界で切断し、内側の連続区間だけ残す(直通区間の切り出し)
+    //  - exclude_bbox: bbox に完全に含まれるチャンクを除外する(支線を本線から除く)
+    const inBbox = (bbox: [number, number, number, number], c: number[]) =>
+      c[0]! >= bbox[0] && c[1]! >= bbox[1] && c[0]! <= bbox[2] && c[1]! <= bbox[3];
+    const allIn = (bbox: [number, number, number, number], cs: number[][]) =>
+      cs.every((c) => inBbox(bbox, c));
+
+    let tracks = railway.sublines
+      .filter((s) => s.coords?.length)
+      .map((s) => ({ type: s.type, coords: s.coords! as number[][] }));
+    if (line.exclude_bbox) {
+      tracks = tracks.filter((t) => !allIn(line.exclude_bbox!, t.coords));
+    }
+    if (line.clip_bbox) {
+      const bbox = line.clip_bbox;
+      const clipped: typeof tracks = [];
+      for (const t of tracks) {
+        let run: number[][] = [];
+        const flush = () => {
+          if (run.length >= 2) clipped.push({ type: t.type, coords: run });
+          run = [];
+        };
+        for (const c of t.coords) {
+          if (inBbox(bbox, c)) run.push(c);
+          else flush();
+        }
+        flush();
+      }
+      tracks = clipped;
+    }
 
     const sts = stations.filter((s) => {
       if (s.railway !== line.mt3d_id || !s.coord || !s.title?.ja) return false;
       if (line.exclude_stations?.includes(s.title.ja)) return false;
-      if (line.clip_bbox && !inBbox(line.clip_bbox, [s.coord])) return false;
+      if (line.clip_bbox && !inBbox(line.clip_bbox, s.coord)) return false;
       return true;
     });
     // 同名の重複(複数ホームの別エントリ等)は除外
@@ -99,7 +118,7 @@ export async function importMt3d(srcArg?: string): Promise<void> {
           geometry: {
             type: "LineString",
             // 第3要素(高度ヒント)は捨て、座標精度は約1cm(7桁)に丸める
-            coordinates: t.coords!.map((c) => [round7(c[0]), round7(c[1])]),
+            coordinates: t.coords.map((c) => [round7(c[0]!), round7(c[1]!)]),
           },
         })),
         ...uniqueSts.map((s) => ({

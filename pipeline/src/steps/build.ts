@@ -63,7 +63,12 @@ export async function build(onlyLine?: string): Promise<void> {
     }
 
     // --- 平面線形(結合+直通区間トリミング) ---
-    const built = buildLinePath(extracted, frame);
+    const overrides = new Map(
+      depthFile.stations
+        .filter((st) => st.lonlat)
+        .map((st) => [st.match_name ?? st.name, frame.toLocal({ lon: st.lonlat![0], lat: st.lonlat![1] })] as const)
+    );
+    const built = buildLinePath(extracted, frame, overrides);
     const path: SampledPath = built.path;
     if (built.droppedChunks > 0 || built.trimmedM > 0) {
       console.log(
@@ -77,10 +82,13 @@ export async function build(onlyLine?: string): Promise<void> {
     const controls: ControlPoint[] = [];
     for (const st of depthFile.stations) {
       const matchName = st.match_name ?? st.name;
-      const local = built.stations.get(matchName);
-      if (!local) {
+      if (!built.stations.has(matchName)) {
         throw new Error(`${line.id}/${st.id}: 線形データに駅「${matchName}」が見つかりません`);
       }
+      // lonlat 上書きがあればホーム実位置を優先する
+      const local = st.lonlat
+        ? frame.toLocal({ lon: st.lonlat[0], lat: st.lonlat[1] })
+        : built.stations.get(matchName)!;
       const lonlat = frame.toLonLat(local);
       const passes = projectPoint(path, local);
       if (passes.length === 0) {

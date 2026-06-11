@@ -70,7 +70,7 @@
    "name": "千代田線(北綾瀬支線)",
    "color": "#00BB85",
    "file": "lines/tokyo-metro.chiyoda-branch.json",
-   "length_m": 2367.05,
+   "length_m": 2380.82,
    "station_count": 2
   },
   {
@@ -128,14 +128,47 @@
    "file": "lines/toei.shinjuku.json",
    "length_m": 23737.56,
    "station_count": 21
+  },
+  {
+   "id": "twr.rinkai",
+   "name": "りんかい線",
+   "color": "#00418E",
+   "file": "lines/twr.rinkai.json",
+   "length_m": 12722.25,
+   "station_count": 8
+  },
+  {
+   "id": "jr-east.sobu-rapid",
+   "name": "総武快速線(地下区間)",
+   "color": "#0074BE",
+   "file": "lines/jr-east.sobu-rapid.json",
+   "length_m": 2486.91,
+   "station_count": 3
+  },
+  {
+   "id": "jr-east.yokosuka",
+   "name": "横須賀線(地下区間)",
+   "color": "#0074BE",
+   "file": "lines/jr-east.yokosuka.json",
+   "length_m": 7117.44,
+   "station_count": 3
+  },
+  {
+   "id": "jr-east.keiyo",
+   "name": "京葉線(地下区間)",
+   "color": "#C9242F",
+   "file": "lines/jr-east.keiyo.json",
+   "length_m": 7656.81,
+   "station_count": 5
   }
  ],
  "stations_file": "stations.json",
  "provenance": {
   "pipeline_version": "0.1.0",
-  "inputs_hash": "40bc38fcf354c51b",
+  "inputs_hash": "7ec9cdd622b3579f",
   "dem_providers": [
-   "gsi"
+   "gsi",
+   "terrarium"
   ]
  }
 }

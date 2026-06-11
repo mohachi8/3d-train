@@ -1,0 +1,97 @@
+# りんかい線 駅深度データ(1996-2002年開業)
+#
+# 最深部は東京港海底トンネルではなく、大井町〜品川シーサイド間の上り線
+# (海抜-43.761m、公式X)。profile-hints.yaml に制御点として登録済み。
+# 主要出典: mirai-report.com「りんかい線 東臨トンネル」シリーズ。
+line_id: twr.rinkai
+default_platform:
+  length_m: 205   # 10両
+  width_m: 10
+  height_m: 5
+stations:
+  - id: shin-kiba
+    name: 新木場
+    platforms:
+      - { id: main, depth_m: -8.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 高架駅(JR京葉線と並列)", method: estimated-from-structure }] }
+  - id: shinonome
+    name: 東雲
+    platforms:
+      - id: main
+        depth_m: -6.0
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "りんかい線東雲駅(日本駅巡り紀行)— りんかい線単独駅で唯一の高架駅(ホーム2階)"
+            url: "https://ekimeguri.com/lines/private-kanto/rinkai/2.html"
+        note: 高架駅。国際展示場方で地下へ潜る
+  - id: kokusai-tenjijo
+    name: 国際展示場
+    platforms:
+      - id: main
+        depth_m: 10.0
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "国際展示場駅 - りんかい線東臨トンネル(7)(mirai-report)— 線路は地表面下10m前後"
+            url: "https://mirai-report.com/blog-entry-1072.html"
+        note: 概数。大崎方へ5‰の下り勾配
+  - id: tokyo-teleport
+    name: 東京テレポート
+    platforms:
+      - id: main
+        depth_m: 22.0
+        depth_datum: ground
+        confidence: secondary
+        sources:
+          - title: "東京テレポート駅(概説)- りんかい線東臨トンネル(10)(mirai-report)— ホームは地下3階・約22m"
+            url: "https://mirai-report.com/blog-entry-1080.html"
+        note: 概数。当駅から東京港海底トンネルへ10‰下り勾配で潜る
+  - id: tennozu-isle
+    name: 天王洲アイル
+    platforms:
+      - id: main
+        depth_m: 22.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "推定: 地下3層構造(B3ホーム)・建設時掘削深さ27.5mから(天王洲アイル駅(概説)mirai-report)"
+            url: "https://mirai-report.com/blog-entry-1110.html"
+            method: estimated-from-structure
+  - id: shinagawa-seaside
+    name: 品川シーサイド
+    platforms:
+      - id: main
+        depth_m: 22.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "推定: 地下3階ホーム(品川シーサイド駅 - Wikipedia)から"
+            url: "https://ja.wikipedia.org/wiki/%E5%93%81%E5%B7%9D%E3%82%B7%E3%83%BC%E3%82%B5%E3%82%A4%E3%83%89%E9%A7%85"
+            method: estimated-from-structure
+        note: 大井町方は上下線が2段重ねのシールドトンネルで武蔵野台地に突入する
+  - id: oimachi
+    name: 大井町
+    platforms:
+      - id: down
+        depth_m: 24.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "推定: 下り(大崎方面)ホームは地下3階。開削部高さ30mの5層構造から(大井町駅(概説)mirai-report)"
+            url: "https://mirai-report.com/blog-entry-1132.html"
+            method: estimated-from-structure
+      - id: up
+        depth_m: 30.0
+        depth_datum: ground
+        confidence: estimated
+        sources:
+          - title: "推定: 上り(新木場方面)ホームは地下5階(2段重ねシールドの下段)"
+            url: "https://mirai-report.com/blog-entry-1132.html"
+            method: estimated-from-structure
+        note: JR改札〜りんかい線改札のエスカレーターは高低差22mで日本一とされる
+  - id: osaki
+    name: 大崎
+    platforms:
+      - { id: main, depth_m: -6.0, depth_datum: ground, confidence: estimated,
+          sources: [{ title: "推定: 地上駅(JR埼京線と共用、大井町方で地下へ下る)", method: estimated-from-structure }] }

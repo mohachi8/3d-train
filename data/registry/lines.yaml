@@ -97,6 +97,25 @@ lines:
       n02_match: { operator: 東京都, line: 10号線新宿線 }, mt3d_id: Toei.Shinjuku }
 
   # ========== Phase 3: JR・私鉄の地下区間 ==========
-  # 坑口(地下区間の切り出し)のスキーマ拡張とともに追加する。例:
-  #   jr-east.sobu-rapid(総武快速線 錦糸町〜品川), twr.rinkai(りんかい線),
-  #   jr-east.keiyo(京葉線 東京〜潮見), tokyu.shin-yokohama 等
+  # underground: partial の路線は地下区間+前後の地上駅のみを clip_bbox で切り出す。
+  # 坑口は地上駅の負深度(高架)と地下駅深度の PCHIP 補間で表現される。
+  - { id: twr.rinkai, name: りんかい線, name_en: Rinkai Line, operator: twr,
+      color: "#00418E", phase: 3, enabled: true, underground: partial,
+      n02_match: { operator: 東京臨海高速鉄道, line: りんかい線 }, mt3d_id: TWR.Rinkai,
+      tunnel_radius_m: 5.0 }
+  - { id: jr-east.sobu-rapid, name: 総武快速線(地下区間), name_en: Sobu Rapid Line (Underground),
+      operator: jr-east, color: "#0074BE", phase: 3, enabled: true, underground: partial,
+      n02_match: { operator: 東日本旅客鉄道, line: 総武線 }, mt3d_id: JR-East.SobuRapid,
+      clip_bbox: [139.7550, 35.6680, 139.8250, 35.7050],   # 東京〜馬喰町(地下区間)
+      exclude_stations: [錦糸町],   # 両国〜錦糸町の高架線形は mt3d が別路線参照のため対象外
+      tunnel_radius_m: 5.0 }
+  - { id: jr-east.yokosuka, name: 横須賀線(地下区間), name_en: Yokosuka Line (Underground),
+      operator: jr-east, color: "#0074BE", phase: 3, enabled: true, underground: partial,
+      n02_match: { operator: 東日本旅客鉄道, line: 横須賀線 }, mt3d_id: JR-East.Yokosuka,
+      clip_bbox: [139.7330, 35.6220, 139.7720, 35.6900],   # 東京〜品川
+      tunnel_radius_m: 5.0 }
+  - { id: jr-east.keiyo, name: 京葉線(地下区間), name_en: Keiyo Line (Underground),
+      operator: jr-east, color: "#C9242F", phase: 3, enabled: true, underground: partial,
+      n02_match: { operator: 東日本旅客鉄道, line: 京葉線 }, mt3d_id: JR-East.Keiyo,
+      clip_bbox: [139.7550, 35.6200, 139.8400, 35.6900],   # 東京〜新木場
+      tunnel_radius_m: 5.0 }

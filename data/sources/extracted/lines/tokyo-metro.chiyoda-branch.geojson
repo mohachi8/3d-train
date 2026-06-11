@@ -22,6 +22,35 @@
     "type": "LineString",
     "coordinates": [
      [
+      139.8207597,
+      35.761711
+     ],
+     [
+      139.8213069,
+      35.7617611
+     ],
+     [
+      139.8217589,
+      35.7618111
+     ],
+     [
+      139.8223199,
+      35.7618659
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "kind": "track",
+    "seq": 1,
+    "role": "sub"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
       139.8223199,
       35.7618659
      ],
@@ -104,7 +133,7 @@
    "type": "Feature",
    "properties": {
     "kind": "track",
-    "seq": 1,
+    "seq": 2,
     "role": "main"
    },
    "geometry": {

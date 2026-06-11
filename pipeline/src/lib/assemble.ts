@@ -27,7 +27,12 @@ export interface LinePathResult {
   stations: Map<string, Pt>;
 }
 
-export function buildLinePath(extracted: ExtractedLine, frame: LocalFrame): LinePathResult {
+export function buildLinePath(
+  extracted: ExtractedLine,
+  frame: LocalFrame,
+  /** 駅位置の上書き(深度YAMLの lonlat)。トリミングの基準にも使う */
+  overrides?: Map<string, Pt>
+): LinePathResult {
   const trackFeatures = extracted.features.filter((f) => f.properties.kind === "track");
   const chunks = trackFeatures.map((f) =>
     (f.geometry.coordinates as [number, number][]).map(([lon, lat]) => frame.toLocal({ lon, lat }))
@@ -48,8 +53,9 @@ export function buildLinePath(extracted: ExtractedLine, frame: LocalFrame): Line
   // 全駅の射影範囲 + マージン でトリミング(範囲外 = 他社直通区間・回送線)
   let sMin = Infinity;
   let sMax = -Infinity;
-  for (const p of stations.values()) {
-    for (const pass of projectPoint(full, p)) {
+  for (const [name, p] of stations) {
+    const pos = overrides?.get(name) ?? p;
+    for (const pass of projectPoint(full, pos)) {
       sMin = Math.min(sMin, pass.s);
       sMax = Math.max(sMax, pass.s);
     }
