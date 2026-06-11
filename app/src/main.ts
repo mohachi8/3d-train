@@ -46,12 +46,19 @@ async function main(): Promise<void> {
   const stations = createStations(data.boxes);
   const labels = createLabels(data.boxes, lineColors);
   const ground = createGround(frame, terrain);
-  scene.add(tunnels.group, stations.group, labels.group, ground.group);
+
+  // 高さ強調: world グループを Y 方向にスケールする。
+  // ラベル(スプライト)は歪むためスケール外に置き、update() で実寸×係数の位置に動かす。
+  let exaggeration: number = CONFIG.exaggeration.initial;
+  const world = new THREE.Group();
+  world.add(tunnels.group, stations.group, ground.group);
+  world.scale.y = exaggeration;
+  scene.add(world, labels.group);
 
   // --- カメラ操作 ---
   const controls = new FlyControls(camera, renderer.domElement, CONFIG.camera.initial);
-  restoreFromHash(controls);
-  startHashSync(controls);
+  restoreFromHash(controls, exaggeration);
+  startHashSync(controls, () => exaggeration);
 
   // --- UI ---
   buildPanel(
@@ -63,6 +70,13 @@ async function main(): Promise<void> {
         labels.setVisible(id, v);
       },
       onGroundOpacity: (v) => ground.setOpacity(v),
+      onExaggeration: (k) => {
+        // カメラの実寸高さを保ったままスケールを切り替える
+        const trueY = controls.camera.position.y / exaggeration;
+        exaggeration = k;
+        world.scale.y = k;
+        controls.camera.position.y = trueY * k;
+      },
       onGridVisible: (v) => (env.grid.visible = v),
       onLabelsVisible: (v) => labels.setEnabled(v),
       onJump: (box) => {
@@ -73,7 +87,7 @@ async function main(): Promise<void> {
         const offX = -dz * 90;
         const offZ = dx * 90;
         const x = box.center[0] + offX;
-        const y = box.center[1] + 35;
+        const y = box.center[1] * exaggeration + 35;
         const z = box.center[2] + offZ;
         const yaw = Math.atan2(-(box.center[0] - x), -(box.center[2] - z));
         const dist = Math.hypot(90, 35);
@@ -81,10 +95,11 @@ async function main(): Promise<void> {
         controls.teleport(x, y, z, yaw, pitch);
       },
     },
-    CONFIG.ground.opacityInitial
+    CONFIG.ground.opacityInitial,
+    CONFIG.exaggeration
   );
   buildAttribution();
-  startHud(controls, frame, terrain);
+  startHud(controls, frame, terrain, () => exaggeration);
 
   document.getElementById("loading")!.classList.add("hidden");
   const overlay = document.getElementById("overlay")!;
@@ -109,7 +124,7 @@ async function main(): Promise<void> {
     const dt = Math.min(clock.getDelta(), 0.1);
     controls.update(dt);
     ground.update(camera.position);
-    labels.update(camera.position);
+    labels.update(camera.position, exaggeration);
     renderer.render(scene, camera);
   });
 }

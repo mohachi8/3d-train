@@ -16,7 +16,8 @@ interface Label {
 
 export interface LabelLayer {
   group: THREE.Group;
-  update(cameraPos: THREE.Vector3): void;
+  /** exaggeration = 高さ強調係数(ラベルは歪まないようワールドのスケール外に置く) */
+  update(cameraPos: THREE.Vector3, exaggeration: number): void;
   setVisible(lineId: string, visible: boolean): void;
   setEnabled(on: boolean): void;
 }
@@ -61,13 +62,14 @@ export function createLabels(
 
   return {
     group,
-    update(cameraPos) {
+    update(cameraPos, exaggeration) {
       for (const l of labels) {
         if (!enabled || hiddenLines.has(l.lineId)) {
           l.sprite.visible = false;
           continue;
         }
-        const d = cameraPos.distanceTo(l.pos);
+        l.sprite.position.set(l.pos.x, l.pos.y * exaggeration, l.pos.z);
+        const d = cameraPos.distanceTo(l.sprite.position);
         l.sprite.visible = d < CONFIG.labels.visibleDistance;
         if (l.sprite.visible) {
           const h = Math.max(8, d * CONFIG.labels.scalePerMeter);

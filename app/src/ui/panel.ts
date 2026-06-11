@@ -6,12 +6,18 @@ import type { LoadedData, StationBox } from "../loader/artifacts.js";
 export interface PanelCallbacks {
   onLineVisible(lineId: string, visible: boolean): void;
   onGroundOpacity(v: number): void;
+  onExaggeration(k: number): void;
   onGridVisible(v: boolean): void;
   onLabelsVisible(v: boolean): void;
   onJump(box: StationBox): void;
 }
 
-export function buildPanel(data: LoadedData, cb: PanelCallbacks, groundOpacity: number): void {
+export function buildPanel(
+  data: LoadedData,
+  cb: PanelCallbacks,
+  groundOpacity: number,
+  exaggeration: { initial: number; min: number; max: number }
+): void {
   const el = document.getElementById("panel")!;
   el.innerHTML = "";
 
@@ -40,6 +46,26 @@ export function buildPanel(data: LoadedData, cb: PanelCallbacks, groundOpacity: 
   slider.value = String(Math.round(groundOpacity * 100));
   slider.addEventListener("input", () => cb.onGroundOpacity(Number(slider.value) / 100));
   el.appendChild(slider);
+
+  // --- 高さ強調(地形と深さの関係を見やすくする。HUDは常に実寸) ---
+  const exagLabel = h2(`高さ強調 ${exaggeration.initial.toFixed(2).replace(/\.?0+$/, "")}×`);
+  el.appendChild(exagLabel);
+  const exag = document.createElement("input");
+  exag.type = "range";
+  exag.min = String(exaggeration.min * 100);
+  exag.max = String(exaggeration.max * 100);
+  exag.step = "25";
+  exag.value = String(Math.round(exaggeration.initial * 100));
+  exag.addEventListener("input", () => {
+    const k = Number(exag.value) / 100;
+    exagLabel.textContent = `高さ強調 ${k.toFixed(2).replace(/\.?0+$/, "")}×`;
+    cb.onExaggeration(k);
+  });
+  el.appendChild(exag);
+  const exagNote = document.createElement("div");
+  exagNote.className = "note";
+  exagNote.textContent = "地形・トンネル・駅を一体で縦に拡大します(1×=実寸)。渋谷の谷や台地と深さの関係が見やすくなります。";
+  el.appendChild(exagNote);
 
   el.appendChild(h2("表示"));
   el.appendChild(

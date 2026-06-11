@@ -24,20 +24,32 @@ export const CONFIG = {
     /** 地理院 淡色地図タイル */
     tileUrl: (z: number, x: number, y: number) =>
       `https://cyberjapandata.gsi.go.jp/xyz/pale/${z}/${x}/${y}.png`,
+    /** 地理院 陰影起伏図(淡色地図に乗算合成して地形を見せる) */
+    hillshadeUrl: (z: number, x: number, y: number) =>
+      `https://cyberjapandata.gsi.go.jp/xyz/hillshademap/${z}/${x}/${y}.png`,
     zoom: 15,
     /** カメラ周囲に読み込むタイル半径(タイル数) */
-    radius: 3,
-    cacheLimit: 180,
-    opacityInitial: 0.4,
-    /** タイル面の起伏グリッド分割数 */
-    segments: 8,
+    radius: 4,
+    cacheLimit: 220,
+    opacityInitial: 0.55,
+    /** タイル面の起伏グリッド分割数(z15タイル≒1.2kmを24分割 → 約50m間隔) */
+    segments: 24,
     updateIntervalMs: 350,
   },
   terrain: {
     /** 地理院 標高タイル(DEM10B 相当)。HUD と地表面の起伏に使用 */
     demUrl: (z: number, x: number, y: number) =>
       `https://cyberjapandata.gsi.go.jp/xyz/dem_png/${z}/${x}/${y}.png`,
+    /** フォールバック: AWS Terrain Tiles(地理院に到達できない環境用) */
+    demFallbackUrl: (z: number, x: number, y: number) =>
+      `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`,
     zoom: 14,
+  },
+  /** 高さ強調(地形・トンネル・駅を一体でY方向スケール)。HUDは常に実寸を表示 */
+  exaggeration: {
+    initial: 1.5,
+    min: 1.0,
+    max: 3.0,
   },
   tunnels: {
     radialSegments: 10,
